@@ -35,7 +35,6 @@ const Blogs = () => {
               <CardContent>
                 <Typography
                   variant="h6"
-                  component="p"
                   className={classes.limitTitle}
                   gutterBottom
                 >

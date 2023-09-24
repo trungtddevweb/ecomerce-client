@@ -16,7 +16,7 @@ import useStyles from "@/assets/styles";
 const SaleProducts = () => {
   const classes = useStyles();
   return (
-    <Box className={classes.marginAuto} sx={{ mb: 6 }}>
+    <Box className={classes.marginAuto} sx={{ py: 6 }}>
       <Stack
         direction="row"
         justifyContent="space-between"

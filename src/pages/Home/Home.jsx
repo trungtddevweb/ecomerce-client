@@ -6,7 +6,6 @@ import banner1 from "@/assets/imgs/banner1.webp";
 import NewProducts from "@/components/NewProducts/NewProducts";
 import HotProducts from "@/components/HotProducts/HotProducts";
 import SaleProducts from "@/components/SaleProducts/SaleProducts";
-import Blogs from "@/components/Blogs/Blogs";
 import useStyles from "@/assets/styles";
 
 const Home = () => {
@@ -25,15 +24,14 @@ const Home = () => {
         </Card>
       </Box>
       <NewProducts />
-      <HotProducts />
-      <SaleProducts />
+
       <Card>
         <CardMedia
           component="img"
           src="https://static.vecteezy.com/system/resources/thumbnails/004/299/835/small/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-free-vector.jpg"
         />
       </Card>
-      <Blogs />
+      <SaleProducts />
     </Fragment>
   );
 };

@@ -78,6 +78,17 @@ const useStyles = makeStyles(() =>
       margin: "0 auto",
       width: "1200px",
     },
+    avatar: {
+      width: "50px",
+      height: "50px",
+    },
+    limitDesc: {
+      display: "-webkit-box",
+      WebkitBoxOrient: "vertical",
+      WebkitLineClamp: 4,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
   })
 );
 

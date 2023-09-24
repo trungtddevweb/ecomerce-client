@@ -1,55 +1,59 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from "react-router-dom";
 
-import AuthLayout from '@/layouts/AuthLayout'
-import MainLayout from '@/layouts/MainLayout'
-import ProtectedLayout from '@/layouts/ProtectedLayout'
+import AuthLayout from "@/layouts/AuthLayout";
+import MainLayout from "@/layouts/MainLayout";
+import ProtectedLayout from "@/layouts/ProtectedLayout";
 
-import { Error, Home, SignIn, SignUp } from './const'
-import NoHeaderLayout from '@/layouts/NoHeaderLayout'
-
+import { Error, Home, SignIn, SignUp } from "./const";
+import NoHeaderLayout from "@/layouts/NoHeaderLayout";
+import ProductDettail from "@/pages/ProductDetail/ProductDettail";
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainLayout />,
-        errorElement: <Error />,
-        children: [
-            {
-                index: true,
-                element: <Home />,
-            },
-        ],
-    },
-    {
-        element: <AuthLayout />,
-        children: [
-            {
-                path: 'sign-up',
-                element: <SignUp />,
-            },
-            {
-                path: 'sign-in',
-                element: <SignIn />,
-            },
-        ],
-    },
-    {
-        element: <ProtectedLayout />,
-        children: [
-            {
-                path: 'manager/:username',
-                element: <div>Setting</div>,
-            },
-        ],
-    },
-    {
-        element: <NoHeaderLayout />,
-        children: [
-            {
-                path: 'settings',
-                element: <div>Page</div>,
-            },
-        ],
-    },
-])
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "detail/:id",
+        element: <ProductDettail />,
+      },
+    ],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "sign-up",
+        element: <SignUp />,
+      },
+      {
+        path: "sign-in",
+        element: <SignIn />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedLayout />,
+    children: [
+      {
+        path: "manager/:username",
+        element: <div>Setting</div>,
+      },
+    ],
+  },
+  {
+    element: <NoHeaderLayout />,
+    children: [
+      {
+        path: "settings",
+        element: <div>Page</div>,
+      },
+    ],
+  },
+]);
 
-export default router
+export default router;
