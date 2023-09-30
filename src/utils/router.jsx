@@ -1,15 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom"
 
-import AuthLayout from "@/layouts/AuthLayout";
-import MainLayout from "@/layouts/MainLayout";
-import ProtectedLayout from "@/layouts/ProtectedLayout";
+import AuthLayout from "@/layouts/AuthLayout"
+import MainLayout from "@/layouts/MainLayout"
+import ProtectedLayout from "@/layouts/ProtectedLayout"
 
-import { Error, Home, SignIn, SignUp } from "./const";
-import NoHeaderLayout from "@/layouts/NoHeaderLayout";
-import ProductDettail from "@/pages/ProductDetail/ProductDettail";
+import {
+  Error,
+  Home,
+  SignIn,
+  SignUp,
+  getDetailProductLoader,
+  pathRoutes,
+} from "./const"
+import NoHeaderLayout from "@/layouts/NoHeaderLayout"
+import ProductDettail from "@/pages/ProductDetail/ProductDetail"
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: pathRoutes.home,
     element: <MainLayout />,
     errorElement: <Error />,
     children: [
@@ -18,8 +26,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "detail/:id",
+        path: pathRoutes.productDetail,
         element: <ProductDettail />,
+        loader: getDetailProductLoader,
       },
     ],
   },
@@ -27,11 +36,11 @@ const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       {
-        path: "sign-up",
+        path: pathRoutes.signUp,
         element: <SignUp />,
       },
       {
-        path: "sign-in",
+        path: pathRoutes.signIn,
         element: <SignIn />,
       },
     ],
@@ -54,6 +63,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+])
 
-export default router;
+export default router

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardActionArea,
@@ -9,11 +8,11 @@ import {
   Typography,
   Rating,
   Box,
-} from "@mui/material";
-import useStyles from "@/assets/styles";
+} from "@mui/material"
+import useStyles from "@/assets/styles"
 
 const HotProducts = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Box className={classes.marginAuto} sx={{ mb: 6 }}>
       <Stack
@@ -143,7 +142,7 @@ const HotProducts = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default HotProducts;
+export default HotProducts

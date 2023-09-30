@@ -1,16 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,900;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,300;1,400&display=swap');
-@import 'react-toastify/dist/ReactToastify.css';
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,900;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,300;1,400&display=swap");
+@import "react-toastify/dist/ReactToastify.css";
+@import "swiper/css";
+@import "swiper/css/navigation";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Variables */
+:root {
+    --main-w: 1200px;
+    --main-margin-top: 16px;
+}
 
 html,
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 /* Scrollbar CSS */
@@ -56,16 +64,11 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
     -moz-appearance: textfield;
 }
 
-/* React-Quill */
-.ql-toolbar.ql-snow.active {
-    background-color: #ffffff;
-}
-
-.ql-editor {
-    font-size: 16px; /* Set your desired default font size here */
-    height: 150px !important;
+/* Common */
+.main-w {
+    width: var(--main-w);
 }
