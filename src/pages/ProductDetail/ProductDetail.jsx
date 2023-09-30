@@ -185,7 +185,6 @@ const ProductDettail = () => {
                                             e.target.value,
                                         )
                                         setValue(newValue)
-                                        console.log(newValue)
                                     }}
                                 />
                                 <Button variant="outlined" onClick={minusValue}>

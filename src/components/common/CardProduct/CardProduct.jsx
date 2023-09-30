@@ -5,7 +5,6 @@ import {
     CardMedia,
     CardContent,
     Typography,
-    Grid,
     Stack,
 } from "@mui/material"
 import { Link } from "react-router-dom"
@@ -16,37 +15,25 @@ const CardProduct = ({ product }) => {
     const classes = useStyles()
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={2.4}>
-                <Link to={`/products/${_id}`}>
-                    <Card variant="outlined">
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                src={product?.productImages[0]}
-                            />
-                            <CardContent>
-                                <Typography
-                                    className={classes.limitTitle}
-                                    gutterBottom
-                                >
-                                    {name}
-                                </Typography>
-                                <Stack
-                                    direction="row"
-                                    justifyContent="space-between"
-                                >
-                                    <Typography color="error">
-                                        {price}đ
-                                    </Typography>
-                                    <Typography>{sold}</Typography>
-                                </Stack>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Link>
-            </Grid>
-        </Grid>
+        <Link to={`/products/${_id}`}>
+            <Card variant="outlined">
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        src={product?.productImages[0]}
+                    />
+                    <CardContent>
+                        <Typography className={classes.limitTitle} gutterBottom>
+                            {name}
+                        </Typography>
+                        <Stack direction="row" justifyContent="space-between">
+                            <Typography color="error">{price}đ</Typography>
+                            <Typography>{sold}</Typography>
+                        </Stack>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Link>
     )
 }
 
