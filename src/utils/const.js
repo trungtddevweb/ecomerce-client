@@ -9,13 +9,15 @@ export const Error = lazy(() => import("@/pages/Error"))
 export const Home = lazy(() => import("@/pages/Home"))
 export const SignIn = lazy(() => import("@/pages/SignIn"))
 export const SignUp = lazy(() => import("@/pages/SignUp"))
+export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
+export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 
 // Paths
 export const pathRoutes = {
-  home: "/",
-  productDetail: "products/:productId",
-  signIn: "sign-in",
-  signUp: "sign-up",
+    home: "/",
+    productDetail: "products/:productId",
+    signIn: "sign-in",
+    signUp: "sign-up",
 }
 
 // Loaders
@@ -35,5 +37,5 @@ export const pathRoutes = {
 // }
 
 export const getDetailProductLoader = async ({ params }) => {
-  return await getProductDetailAPI(params.productId)
+    return await getProductDetailAPI(params.productId)
 }
