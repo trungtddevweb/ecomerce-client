@@ -36,6 +36,10 @@ export const pathRoutes = {
 //   return await getPostTrendingAPI()
 // }
 
+export const checkAdminLoader = async () => {
+    return await getUser
+}
+
 export const getDetailProductLoader = async ({ params }) => {
     return await getProductDetailAPI(params.productId)
 }
