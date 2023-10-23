@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom"
 
 import AuthLayout from "@/layouts/AuthLayout"
 import MainLayout from "@/layouts/MainLayout"
-import ProtectedLayout from "@/layouts/ProtectedLayout"
 import NoHeaderLayout from "@/layouts/NoHeaderLayout"
+import ProtectedLayout from "@/layouts/ProtectedLayout"
 
 import {
     Error,
@@ -59,9 +59,34 @@ const router = createBrowserRouter([
         element: <NoHeaderLayout />,
         children: [
             {
-                path: "dashboard",
+                path: pathRoutes.dashboard,
                 element: <Dashboard />,
-                loader: checkAdminLoader,
+                children: [
+                    {
+                        path: pathRoutes.customer,
+                        element: <div>User Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.order,
+                        element: <div>Order Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.store,
+                        element: <div>Store Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.product,
+                        element: <div>Product Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.voucher,
+                        element: <div>Voucher Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.setting,
+                        element: <div>Setting Controller</div>,
+                    },
+                ],
             },
         ],
     },

@@ -18,6 +18,13 @@ export const pathRoutes = {
     productDetail: "products/:productId",
     signIn: "sign-in",
     signUp: "sign-up",
+    dashboard: "dashboard",
+    customer: "customer",
+    order: "order",
+    setting: "setting",
+    voucher: "voucher",
+    product: "product",
+    store: "store",
 }
 
 // Loaders
@@ -35,10 +42,6 @@ export const pathRoutes = {
 // export const getTrendingLoader = async () => {
 //   return await getPostTrendingAPI()
 // }
-
-export const checkAdminLoader = async () => {
-    return await getUser
-}
 
 export const getDetailProductLoader = async ({ params }) => {
     return await getProductDetailAPI(params.productId)

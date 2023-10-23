@@ -53,10 +53,6 @@ p {
     margin-bottom: 0;
 }
 
-a:hover {
-    color: white;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -71,4 +67,12 @@ input[type="number"] {
 /* Common */
 .main-w {
     width: var(--main-w);
+}
+
+.active-dark {
+    background-color: dimgray !important;
+}
+
+.active-light {
+    background-color: wheat !important;
 }
