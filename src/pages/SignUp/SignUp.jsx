@@ -8,58 +8,65 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-} from '@mui/material'
-import { LoadingButton } from '@mui/lab'
-import { Controller, useForm } from 'react-hook-form'
-import { object, string } from 'yup'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import Image from 'mui-image'
-import jwtDecode from 'jwt-decode'
-import { GoogleLogin } from '@react-oauth/google'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Fragment, useState } from 'react'
+} from "@mui/material"
+import { LoadingButton } from "@mui/lab"
+import { Controller, useForm } from "react-hook-form"
+import { object, string } from "yup"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import Image from "mui-image"
+import { GoogleLogin } from "@react-oauth/google"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Fragment, useState } from "react"
 
-import logo from '@/assets/images/logo.png'
-import loginBg from '@/assets/images/bg-login.jpg'
-import { loginSuccess } from '@/redux/userSlice'
-import TypeErrorMsg from '@/components/common/TypeErrorMsg'
-import { ErrorMessage } from '@hookform/error-message'
-import { signUpAPI } from '@/api/main'
-import { showToast } from '@/redux/toastSlice'
-import Seo from '@/components/feature/Seo'
+import logo from "@/assets/images/logo.png"
+import registerBg from "@/assets/images/bg-register.jpg"
+import { loginSuccess } from "@/redux/userSlice"
+import TypeErrorMsg from "@/components/common/TypeErrorMsg"
+import { ErrorMessage } from "@hookform/error-message"
+import { signInWithGoogleAPI, signUpAPI } from "@/api/main"
+import { showToast } from "@/redux/toastSlice"
+import Seo from "@/components/feature/Seo"
 
 const SignUp = () => {
     const dispatch = useDispatch()
     const theme = useTheme()
-    const isMatch = useMediaQuery(theme.breakpoints.down('sm'))
+    const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState("")
     const navigate = useNavigate()
 
     const defaultValues = {
-        name: '',
-        email: '',
-        password: '',
+        name: "",
+        email: "",
+        password: "",
     }
     const userSchema = object({
         name: string()
-            .min(1, 'Phải có ít nhất 1 kí tự!')
-            .required('Không được để trống!')
-            .max(24, 'Chỉ được phép tối đa 24 kí tự!'),
-        email: string().email().required('Không được để trống!'),
+            .min(1, "Phải có ít nhất 1 kí tự!")
+            .required("Không được để trống!")
+            .max(24, "Chỉ được phép tối đa 24 kí tự!"),
+        email: string()
+            .email("Phải có dạng example@abc.xyz")
+            .test(
+                "contains-dot",
+                "Email chưa hợp lệ",
+                (value) => value && value.includes("."),
+            )
+            .required("Không được để trống"),
         password: string()
-            .required('Không được để trống')
-            .min(6, 'Phải có ít nhất 6 kí tự!')
-            .max(24, 'Chỉ được phép tối đa 24 kí tự!'),
+            .required("Không được để trống")
+            .min(6, "Phải có ít nhất 6 kí tự!")
+            .max(24, "Chỉ được phép tối đa 24 kí tự!"),
     })
 
     const {
         handleSubmit,
         control,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm({
         defaultValues,
+        mode: "onChange",
         resolver: yupResolver(userSchema),
     })
 
@@ -67,25 +74,27 @@ const SignUp = () => {
         try {
             setLoading(true)
             await signUpAPI(data)
-            setLoading(false)
             dispatch(
-                showToast({ type: 'success', message: 'Đăng ký thành công!' })
+                showToast({ type: "success", message: "Đăng ký thành công!" }),
             )
-            navigate('/sign-in')
+            navigate("/sign-in")
         } catch (err) {
+            setError(err.response?.data.message)
+        } finally {
             setLoading(false)
-            console.log(err)
-            setError(err)
         }
     }
 
     const onLoginGgSuccess = async (credentialResponse) => {
         try {
             setLoading(true)
-            const decode = await jwtDecode(credentialResponse.credential)
+            const decode = await signInWithGoogleAPI(
+                credentialResponse.credential,
+            )
             dispatch(loginSuccess(decode))
+            navigate(-1)
         } catch (error) {
-            setError(error)
+            console.error(error)
         } finally {
             setLoading(false)
         }
@@ -94,43 +103,49 @@ const SignUp = () => {
     return (
         <Fragment>
             <Seo
-                title="Coffee Sweet | Đăng ký "
-                description="Nơi chia sẻ những khoảnh khắc https://facebook.com/trung02032001"
+                title="May Store | Đăng ký "
+                description="Buy everything you need"
                 type="webapp"
-                name="Coffee Sweet"
+                name="May Store"
             />
             <Box className="h-screen flex items-center justify-center sm:px-2">
                 <Paper
                     sx={{
                         width: {
-                            xs: '100%',
-                            md: '80%',
+                            xs: "100%",
+                            md: "80%",
                         },
                         height: {
-                            xs: '100vh',
-                            sm: '80vh',
+                            xs: "100vh",
+                            sm: "80vh",
                         },
                     }}
                     elevation={4}
                 >
                     <Box className="h-full relative overflow-hidden">
                         <Link to="/">
-                            <img
+                            <Box
+                                component="img"
+                                sx={{
+                                    p: 2,
+                                    right: 0,
+                                }}
+                                position="absolute"
                                 src={logo}
-                                alt="Coffee sweet"
-                                className="lg:w-[120px] w-[80px]  absolute top-0 right-0"
+                                width={70}
+                                alt="May Store"
                             />
                         </Link>
 
                         <Box
                             sx={{
-                                display: isMatch ? 'block' : 'flex',
+                                display: isMatch ? "block" : "flex",
                             }}
                         >
                             {!isMatch && (
                                 <Box flex={2}>
                                     <Image
-                                        src={loginBg}
+                                        src={registerBg}
                                         alt="Background"
                                         width="100%"
                                         height="80vh"
@@ -140,9 +155,9 @@ const SignUp = () => {
                             <Box
                                 component="form"
                                 sx={{
-                                    marginTop: isMatch ? '22%' : '8%',
+                                    marginTop: isMatch ? "22%" : "8%",
                                     flex: 1,
-                                    padding: isMatch ? '10px' : '32px',
+                                    padding: isMatch ? "10px" : "32px",
                                 }}
                                 onSubmit={handleSubmit(onSubmit)}
                             >
@@ -156,13 +171,14 @@ const SignUp = () => {
                                     Đăng kí tài khoản
                                 </Typography>
                                 <Stack spacing={2} marginBottom={1}>
+                                    <TypeErrorMsg message={error} />
                                     <FormControl sx={{ flex: 1 }}>
                                         <Controller
                                             control={control}
                                             name="name"
                                             render={({ field }) => (
                                                 <TextField
-                                                    error={errors.name}
+                                                    error={!!errors.name}
                                                     label="Tên"
                                                     type="text"
                                                     {...field}
@@ -185,7 +201,7 @@ const SignUp = () => {
                                             name="email"
                                             render={({ field }) => (
                                                 <TextField
-                                                    error={errors.email}
+                                                    error={!!errors.email}
                                                     label="Email"
                                                     type="email"
                                                     {...field}
@@ -208,7 +224,7 @@ const SignUp = () => {
                                             name="password"
                                             render={({ field }) => (
                                                 <TextField
-                                                    error={errors.password}
+                                                    error={!!errors.password}
                                                     label="Mật khẩu"
                                                     type="password"
                                                     {...field}
@@ -230,6 +246,7 @@ const SignUp = () => {
                                         fullWidth
                                         variant="contained"
                                         type="submit"
+                                        disabled={!isValid}
                                     >
                                         Tạo tài khoản
                                     </LoadingButton>
@@ -240,7 +257,7 @@ const SignUp = () => {
                                         useOneTap
                                         onSuccess={onLoginGgSuccess}
                                         onError={() => {
-                                            console.log('Login Failed')
+                                            console.log("Login Failed")
                                         }}
                                     />
                                 </Stack>
