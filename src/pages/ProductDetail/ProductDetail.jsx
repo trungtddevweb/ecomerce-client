@@ -18,6 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useLoaderData } from "react-router-dom"
 import { Navigation, Autoplay } from "swiper/modules"
+import { useSearchParams } from "react-router-dom"
 
 import useStyles from "@/assets/styles"
 import AnotherProducts from "./AnotherProducts"
@@ -26,27 +27,69 @@ import Comments from "./Comments"
 const ProductDettail = () => {
     const product = useLoaderData()
     const classes = useStyles()
-
+    const [search, setSearch] = useSearchParams()
+    const color = search.get("color")
+    const size = search.get("size")
+    const quantity = parseInt(search.get("quantity") || 1)
     const [hoveredImage, setHoveredImage] = useState(null)
-    const [value, setValue] = useState(1)
-    const [selectedColor, setSelectedColor] = useState()
-    const [selectedSize, setSelectedSize] = useState()
-
+    console.log(product)
     // Handlers
     const handleChangeColor = (event, newAlignment) => {
-        setSelectedColor(newAlignment)
+        setSearch(
+            (prev) => {
+                prev.set("color", newAlignment)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const handleChangeSize = (event, newAlignment) => {
-        setSelectedSize(newAlignment)
+        setSearch(
+            (prev) => {
+                prev.set("size", newAlignment)
+                return prev
+            },
+            { replace: true },
+        )
+    }
+    const handlequantity = (e) => {
+        const newValue = parseInt(e.target.value)
+        setSearch(
+            (prev) => {
+                prev.set("quantity", newValue)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const handleImageHover = (image) => {
         setHoveredImage(image)
     }
     const addValue = () => {
-        setValue(value + 1)
+        setSearch(
+            (prev) => {
+                prev.set("quantity", quantity + 1)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const minusValue = () => {
-        value <= 1 ? setValue(1) : setValue(value - 1)
+        quantity <= 1
+            ? setSearch(
+                  (prev) => {
+                      prev.set("quantity", 1)
+                      return prev
+                  },
+                  { replace: true },
+              )
+            : setSearch(
+                  (prev) => {
+                      prev.set("quantity", quantity - 1)
+                      return prev
+                  },
+                  { replace: true },
+              )
     }
 
     return (
@@ -85,6 +128,7 @@ const ProductDettail = () => {
                                         >
                                             <Card>
                                                 <CardMedia
+                                                    sx={{ height: "100%" }}
                                                     component="img"
                                                     src={productImage}
                                                 />
@@ -116,7 +160,7 @@ const ProductDettail = () => {
                             alignItems="center"
                             sx={{ mb: 3 }}
                         >
-                            <Typography>Giá:</Typography>
+                            <Typography sx={{ width: "20%" }}>Giá:</Typography>
                             <Typography color="error" variant="h4">
                                 {product.price}đ
                             </Typography>
@@ -127,12 +171,14 @@ const ProductDettail = () => {
                             spacing={2}
                             alignItems="center"
                         >
-                            <Typography>Màu sắc:</Typography>
+                            <Typography sx={{ width: "20%" }}>
+                                Màu sắc:
+                            </Typography>
 
                             <ToggleButtonGroup
                                 color="primary"
                                 required
-                                value={selectedColor}
+                                value={color}
                                 exclusive
                                 onChange={handleChangeColor}
                                 aria-label="Select color"
@@ -144,16 +190,19 @@ const ProductDettail = () => {
                                 ))}
                             </ToggleButtonGroup>
                         </Stack>
+
                         <Stack
                             direction="row"
                             spacing={2}
                             sx={{ mb: 3 }}
                             alignItems="center"
                         >
-                            <Typography>Kích thước:</Typography>
+                            <Typography sx={{ width: "20%" }}>
+                                Kích thước:
+                            </Typography>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={selectedSize}
+                                value={size}
                                 exclusive
                                 onChange={handleChangeSize}
                                 aria-label="Select Size"
@@ -171,26 +220,25 @@ const ProductDettail = () => {
                             sx={{ mb: 4 }}
                             spacing={2}
                         >
-                            <Typography>Số lượng:</Typography>
-                            <Typography> {product.quantity}</Typography>
-                            <Stack direction="row">
+                            <Typography sx={{ width: "20%" }}>
+                                Số lượng:
+                            </Typography>
+                            <Stack direction="row" sx={{ width: "200px" }}>
                                 <Button variant="outlined" onClick={addValue}>
                                     <AddIcon />
                                 </Button>
                                 <TextField
-                                    value={value}
+                                    value={quantity}
                                     type="number"
-                                    onChange={(e) => {
-                                        const newValue = parseInt(
-                                            e.target.value,
-                                        )
-                                        setValue(newValue)
-                                    }}
+                                    onChange={handlequantity}
                                 />
                                 <Button variant="outlined" onClick={minusValue}>
                                     <RemoveIcon />
                                 </Button>
                             </Stack>
+                            <Typography>
+                                {product.quantity} sản phẩm có sẵn
+                            </Typography>
                         </Stack>
 
                         <Stack direction="row" spacing={2} alignItems="center">
@@ -210,7 +258,7 @@ const ProductDettail = () => {
                     <AnotherProducts />
                 </Box>
             </Paper>
-            <Comments />
+            <Comments productId={product._id} comments={product.comments} />
         </Box>
     )
 }

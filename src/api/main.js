@@ -3,35 +3,35 @@ import mainAPI from "./base"
 
 // Auth APIs
 export const signUpAPI = async (data) => {
-  return await mainAPI.post("/auth/sign-up", data)
+    return await mainAPI.post("/auth/sign-up", data)
 }
 
 export const signInAPI = async (data) => {
-  const response = await mainAPI.post("/auth/sign-in", data)
-  setToken(response.data.accessToken)
-  return response.data
+    const response = await mainAPI.post("/auth/sign-in", data)
+    setToken(response.data.accessToken)
+    return response.data
 }
 
 export const signInWithGoogleAPI = async (idToken) => {
-  const response = await mainAPI.post("/auth/google-sign-in", { idToken })
-  setToken(response.data.accessToken)
-  return response.data
+    const response = await mainAPI.post("/auth/google-sign-in", { idToken })
+    setToken(response.data.accessToken)
+    return response.data
 }
 
 export const signOutAPI = async () => {
-  return await mainAPI.post("/auth/sign-out", null)
+    return await mainAPI.post("/auth/sign-out", null)
 }
 
 // PRODUCT API
 
 export const getProductDetailAPI = async (productId) => {
-  const res = await mainAPI.get(`/products/find/${productId}`)
-  return res.data
+    const res = await mainAPI.get(`/products/find/${productId}`)
+    return res.data
 }
 
 export const getAllProductsAPI = async () => {
-  const res = await mainAPI.get("/products")
-  return res.data
+    const res = await mainAPI.get("/products")
+    return res.data
 }
 
 // export const getPostByTagAPI = async (tagName) => {
@@ -62,6 +62,6 @@ export const getAllProductsAPI = async () => {
 
 // Comment
 export const createCommentAPI = async (data) => {
-  const res = await mainAPI.post("/comment/", data)
-  return res.data
+    const res = await mainAPI.post("/comment/", data)
+    return res.data
 }

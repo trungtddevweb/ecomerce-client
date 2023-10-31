@@ -11,41 +11,41 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-} from '@mui/material'
-import { LoadingButton } from '@mui/lab'
-import { Controller, useForm } from 'react-hook-form'
-import { object, string } from 'yup'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import Image from 'mui-image'
-import { GoogleLogin } from '@react-oauth/google'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Fragment, useState } from 'react'
+} from "@mui/material"
+import { LoadingButton } from "@mui/lab"
+import { Controller, useForm } from "react-hook-form"
+import { object, string } from "yup"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import Image from "mui-image"
+import { GoogleLogin } from "@react-oauth/google"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { Fragment, useState } from "react"
 
-import logo from '@/assets/images/logo.png'
-import loginBg from '@/assets/images/bg-login.jpg'
-import { loginSuccess } from '@/redux/userSlice'
-import TypeErrorMsg from '@/components/common/TypeErrorMsg'
-import { ErrorMessage } from '@hookform/error-message'
-import { signInAPI, signInWithGoogleAPI } from '@/api/main'
-import Seo from '@/components/feature/Seo'
+import logo from "@/assets/images/logo.png"
+import loginBg from "@/assets/images/bg-login.jpg"
+import { loginSuccess } from "@/redux/userSlice"
+import TypeErrorMsg from "@/components/common/TypeErrorMsg"
+import { ErrorMessage } from "@hookform/error-message"
+import { signInAPI, signInWithGoogleAPI } from "@/api/main"
+import Seo from "@/components/feature/Seo"
 
 const SignIn = () => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState("")
     const theme = useTheme()
-    const isMatch = useMediaQuery(theme.breakpoints.down('sm'))
+    const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
     const navigate = useNavigate()
     const defaultValues = {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
     }
     const userSchema = object({
         email: string()
-            .email('Phải có dạng example@abc.xyz')
-            .required('Không được để trống'),
-        password: string().min(6, 'Phải có ít nhất 6 kí tự'),
+            .email("Phải có dạng example@abc.xyz")
+            .required("Không được để trống"),
+        password: string().min(6, "Phải có ít nhất 6 kí tự"),
     })
 
     const {
@@ -74,7 +74,7 @@ const SignIn = () => {
         try {
             setLoading(true)
             const decode = await signInWithGoogleAPI(
-                credentialResponse.credential
+                credentialResponse.credential,
             )
             dispatch(loginSuccess(decode))
             navigate(-1)
@@ -97,12 +97,12 @@ const SignIn = () => {
                 <Paper
                     sx={{
                         width: {
-                            xs: '100%',
-                            md: '80%',
+                            xs: "100%",
+                            md: "80%",
                         },
                         height: {
-                            xs: '100%',
-                            sm: '80vh',
+                            xs: "100%",
+                            sm: "80vh",
                         },
                     }}
                     elevation={4}
@@ -118,15 +118,15 @@ const SignIn = () => {
 
                         <Box
                             sx={{
-                                display: isMatch ? 'block' : 'flex',
+                                display: isMatch ? "block" : "flex",
                             }}
                         >
                             <Box
                                 component="form"
                                 sx={{
-                                    marginTop: isMatch ? '22%' : '8%',
+                                    marginTop: isMatch ? "22%" : "8%",
                                     flex: 1,
-                                    padding: isMatch ? '10px' : '32px',
+                                    padding: isMatch ? "10px" : "32px",
                                 }}
                                 onSubmit={handleSubmit(onSubmit)}
                             >
@@ -203,12 +203,14 @@ const SignIn = () => {
                                                 label="Ghi nhớ đăng nhập"
                                             />
                                         </FormGroup>
-                                        <Typography
-                                            variant="subtitle2"
-                                            color="primary"
-                                        >
-                                            Quên mật khẩu
-                                        </Typography>
+                                        <Link to="/forget">
+                                            <Typography
+                                                variant="subtitle2"
+                                                color="primary"
+                                            >
+                                                Quên mật khẩu
+                                            </Typography>
+                                        </Link>
                                     </Stack>
                                     <LoadingButton
                                         loading={loading}
@@ -223,7 +225,7 @@ const SignIn = () => {
                                     <GoogleLogin
                                         onSuccess={onLoginGgSuccess}
                                         onError={() => {
-                                            console.log('Login Failed')
+                                            console.log("Login Failed")
                                         }}
                                     />
                                 </Stack>
