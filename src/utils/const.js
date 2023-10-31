@@ -12,6 +12,9 @@ export const SignUp = lazy(() => import("@/pages/SignUp"))
 export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 
+// Dashboard Routes
+export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
+
 // Paths
 export const pathRoutes = {
     home: "/",
