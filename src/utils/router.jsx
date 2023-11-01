@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom"
 
 import AuthLayout from "@/layouts/AuthLayout"
 import MainLayout from "@/layouts/MainLayout"
+import NoHeaderLayout from "@/layouts/NoHeaderLayout"
 import ProtectedLayout from "@/layouts/ProtectedLayout"
 
 import {
@@ -9,12 +10,11 @@ import {
     Home,
     SignIn,
     SignUp,
+    ProductDetail,
     getDetailProductLoader,
     pathRoutes,
-    Forget,
+    Dashboard,
 } from "./const"
-import NoHeaderLayout from "@/layouts/NoHeaderLayout"
-import ProductDettail from "@/pages/ProductDetail/ProductDetail"
 
 const router = createBrowserRouter([
     {
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
             },
             {
                 path: pathRoutes.productDetail,
-                element: <ProductDettail />,
+                element: <ProductDetail />,
                 loader: getDetailProductLoader,
             },
         ],
@@ -43,10 +43,6 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.signIn,
                 element: <SignIn />,
-            },
-            {
-                path: pathRoutes.forget,
-                element: <Forget />,
             },
         ],
     },
@@ -63,8 +59,34 @@ const router = createBrowserRouter([
         element: <NoHeaderLayout />,
         children: [
             {
-                path: "settings",
-                element: <div>Page</div>,
+                path: pathRoutes.dashboard,
+                element: <Dashboard />,
+                children: [
+                    {
+                        path: pathRoutes.customer,
+                        element: <div>User Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.order,
+                        element: <div>Order Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.store,
+                        element: <div>Store Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.product,
+                        element: <div>Product Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.voucher,
+                        element: <div>Voucher Controller</div>,
+                    },
+                    {
+                        path: pathRoutes.setting,
+                        element: <div>Setting Controller</div>,
+                    },
+                ],
             },
         ],
     },

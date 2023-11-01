@@ -32,7 +32,6 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import HideOnScroll from "../HideOnScroll"
-import { navItems } from "@/utils/components"
 import { Search, SearchIconWrapper, StyledInputBase } from "@/assets/styles"
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -176,19 +175,6 @@ export default function Header(props) {
                     </ListItem>
                 </Link>
                 <Divider />
-                {navItems.map((item) => {
-                    const { slug, icon, label } = item
-                    return (
-                        <Link to={slug} key={slug}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>{icon}</ListItemIcon>
-                                    <ListItemText primary={label} />
-                                </ListItemButton>
-                            </ListItem>
-                        </Link>
-                    )
-                })}
                 {!checkLoggedIn && (
                     <ListItem>
                         <Link to="/sign-in">

@@ -9,7 +9,8 @@ export const Error = lazy(() => import("@/pages/Error"))
 export const Home = lazy(() => import("@/pages/Home"))
 export const SignIn = lazy(() => import("@/pages/SignIn"))
 export const SignUp = lazy(() => import("@/pages/SignUp"))
-export const Forget = lazy(() => import("@/pages/Forget"))
+export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
+export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 
 // Paths
 export const pathRoutes = {
@@ -17,7 +18,13 @@ export const pathRoutes = {
     productDetail: "products/:productId",
     signIn: "sign-in",
     signUp: "sign-up",
-    forget: "forget",
+    dashboard: "dashboard",
+    customer: "customer",
+    order: "order",
+    setting: "setting",
+    voucher: "voucher",
+    product: "product",
+    store: "store",
 }
 
 // Loaders
