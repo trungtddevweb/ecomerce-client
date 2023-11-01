@@ -32,7 +32,7 @@ const ProductDettail = () => {
     const size = search.get("size")
     const quantity = parseInt(search.get("quantity") || 1)
     const [hoveredImage, setHoveredImage] = useState(null)
-    console.log(product)
+
     // Handlers
     const handleChangeColor = (event, newAlignment) => {
         setSearch(

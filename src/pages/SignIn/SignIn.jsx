@@ -44,16 +44,24 @@ const SignIn = () => {
     const userSchema = object({
         email: string()
             .email("Phải có dạng example@abc.xyz")
+            .test(
+                "contains-dot",
+                "Email chưa hợp lệ",
+                (value) => value && value.includes("."),
+            )
             .required("Không được để trống"),
-        password: string().min(6, "Phải có ít nhất 6 kí tự"),
+        password: string()
+            .min(6, "Phải có ít nhất 6 kí tự")
+            .max(24, "Mật khẩu không được vượt quá 24 kí tự!"),
     })
 
     const {
         handleSubmit,
         control,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm({
         defaultValues,
+        mode: "onChange",
         resolver: yupResolver(userSchema),
     })
 
@@ -64,7 +72,7 @@ const SignIn = () => {
             dispatch(loginSuccess(response))
             navigate(-1)
         } catch (error) {
-            setError(error.response.data)
+            setError(error.response?.data.message)
         } finally {
             setLoading(false)
         }
@@ -88,10 +96,10 @@ const SignIn = () => {
     return (
         <Fragment>
             <Seo
-                title="Coffee Sweet | Đăng nhập "
-                description="Đăng nhập vào Sweet Coffee https://facebook.com/trung02032001"
+                title="Coffee Store | Đăng nhập "
+                description="Coffee Store buy everything you want"
                 type="webapp"
-                name="Coffee Sweet"
+                name="Coffee Store"
             />
             <Box className="h-screen flex items-center justify-center sm:px-2">
                 <Paper
@@ -109,10 +117,15 @@ const SignIn = () => {
                 >
                     <Box className="h-full relative overflow-hidden">
                         <Link to="/">
-                            <img
+                            <Box
+                                component="img"
+                                sx={{
+                                    p: 2,
+                                }}
+                                position="absolute"
                                 src={logo}
-                                alt="Coffee sweet"
-                                className="lg:w-[120px] w-[80px]  absolute top-0 left-0"
+                                width={70}
+                                alt="May Store"
                             />
                         </Link>
 
@@ -148,7 +161,7 @@ const SignIn = () => {
                                                 name="email"
                                                 render={({ field }) => (
                                                     <TextField
-                                                        error={errors.email}
+                                                        error={!!errors.email}
                                                         label="Email"
                                                         fullWidth
                                                         type="email"
@@ -174,8 +187,11 @@ const SignIn = () => {
                                                 render={({ field }) => (
                                                     <TextField
                                                         label="Mật khẩu"
-                                                        error={errors.password}
+                                                        error={
+                                                            !!errors.password
+                                                        }
                                                         type="password"
+                                                        autoComplete="new-password"
                                                         {...field}
                                                     />
                                                 )}
@@ -216,6 +232,7 @@ const SignIn = () => {
                                         loading={loading}
                                         variant="contained"
                                         type="submit"
+                                        disabled={!isValid}
                                     >
                                         Đăng nhâp
                                     </LoadingButton>

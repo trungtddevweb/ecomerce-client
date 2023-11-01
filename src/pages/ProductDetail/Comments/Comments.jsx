@@ -24,7 +24,7 @@ const Comments = ({ productId, comments }) => {
         try {
             const res = await createCommentAPI({
                 productId,
-                content: content,
+                content,
             })
             console.log(res)
         } catch (err) {
