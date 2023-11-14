@@ -51,8 +51,8 @@ const router = createBrowserRouter([
         element: <ProtectedLayout />,
         children: [
             {
-                path: "manager/:username",
-                element: <div>Setting</div>,
+                path: "cart",
+                element: <div>Cart</div>,
             },
         ],
     },

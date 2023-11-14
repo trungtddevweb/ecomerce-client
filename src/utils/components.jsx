@@ -58,31 +58,31 @@ export const navItemsDashboard = [
 
 export const listItemsOverview = [
     {
-        fetch: "/orders",
+        fetchUrl: "orders",
         label: "Đơn hàng",
         number: 100,
         icon: <ShoppingBag fontSize="small" color="info" />,
     },
     {
-        fetch: "/sales",
+        fetchUrl: "sales",
         label: "Tổng doanh thu",
         number: 200,
         icon: <ShoppingCart fontSize="small" color="error" />,
     },
     {
-        fetch: "/average-sales",
+        fetchUrl: "average-sales",
         label: "Trung bình doanh thu",
         number: 300,
         icon: <BarChart fontSize="small" color="success" />,
     },
     {
-        fetch: "/customers",
+        fetchUrl: "users",
         label: "Khách hàng",
         number: 120,
         icon: <Person2 fontSize="small" color="warning" />,
     },
     {
-        fetch: "/stars",
+        fetchUrl: "stars",
         label: "Đánh giá",
         number: 320,
         icon: <StarBorder fontSize="small" color="secondary" />,

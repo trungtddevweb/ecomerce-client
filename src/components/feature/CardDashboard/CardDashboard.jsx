@@ -1,10 +1,12 @@
 import PropTypes from "prop-types"
-import { Box, Paper, Stack, Typography } from "@mui/material"
+import { Box, LinearProgress, Paper, Stack, Typography } from "@mui/material"
 import useStyles from "@/assets/styles"
+import useFetch from "@/hooks/useFetch"
 
-const CardDashboard = ({ data }) => {
+const CardDashboard = ({ item }) => {
     const classes = useStyles()
-
+    const { data, loading } = useFetch(`/dashboard/${item.fetchUrl}`)
+    console.log("data=====>", data?.totalDocs)
     return (
         <Paper
             sx={{
@@ -27,14 +29,20 @@ const CardDashboard = ({ data }) => {
                 }}
                 className={classes.flexBox}
             >
-                {data.icon}
+                {item.icon}
             </Box>
             <Stack>
-                <Typography variant="body2" textAlign="left">
-                    {data.number}
-                </Typography>
-                <Typography variant="caption" color={data.colorText}>
-                    {data.label}
+                {loading ? (
+                    <Box m={1}>
+                        <LinearProgress />
+                    </Box>
+                ) : (
+                    <Typography variant="body2" textAlign="left">
+                        {item.number}
+                    </Typography>
+                )}
+                <Typography variant="caption" color={item.colorText}>
+                    {item.label}
                 </Typography>
             </Stack>
         </Paper>
@@ -42,7 +50,7 @@ const CardDashboard = ({ data }) => {
 }
 
 CardDashboard.propTypes = {
-    data: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired,
 }
 
 export default CardDashboard

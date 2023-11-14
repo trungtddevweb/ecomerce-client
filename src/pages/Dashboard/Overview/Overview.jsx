@@ -97,7 +97,7 @@ const Overview = () => {
                 <Grid item container spacing={4}>
                     {listItemsOverview.map((item, index) => (
                         <Grid item key={index} md={2.4}>
-                            <CardDashboard data={item} />
+                            <CardDashboard item={item} />
                         </Grid>
                     ))}
                 </Grid>
