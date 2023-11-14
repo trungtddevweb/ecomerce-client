@@ -6,6 +6,9 @@ import {
     ShoppingBag,
     Storefront,
     Dashboard,
+    ShoppingCart,
+    BarChart,
+    StarBorder,
 } from "@mui/icons-material"
 
 export const navItemsDashboard = [
@@ -50,5 +53,74 @@ export const navItemsDashboard = [
         label: "Cài đặt",
         value: "Setting",
         slug: "setting",
+    },
+]
+
+export const listItemsOverview = [
+    {
+        fetchUrl: "orders",
+        label: "Đơn hàng",
+        number: 100,
+        icon: <ShoppingBag fontSize="small" color="info" />,
+    },
+    {
+        fetchUrl: "sales",
+        label: "Tổng doanh thu",
+        number: 200,
+        icon: <ShoppingCart fontSize="small" color="error" />,
+    },
+    {
+        fetchUrl: "average-sales",
+        label: "Trung bình doanh thu",
+        number: 300,
+        icon: <BarChart fontSize="small" color="success" />,
+    },
+    {
+        fetchUrl: "users",
+        label: "Khách hàng",
+        number: 120,
+        icon: <Person2 fontSize="small" color="warning" />,
+    },
+    {
+        fetchUrl: "stars",
+        label: "Đánh giá",
+        number: 320,
+        icon: <StarBorder fontSize="small" color="secondary" />,
+    },
+]
+
+// Dashboard query
+export const optionsListQuery = [
+    "Hôm nay",
+    "Tuần trước",
+    "Tháng trước",
+    "Năm trước",
+]
+
+export const listQueryOfTypeDate = [
+    {
+        fetch: "/orders",
+        label: "Đơn hàng",
+        number: 1212,
+        icon: <ShoppingBag fontSize="small" color="info" />,
+    },
+    {
+        fetch: "/sales",
+        label: "Tổng doanh thu",
+        number: 14411,
+        icon: <ShoppingCart fontSize="small" color="error" />,
+    },
+
+    {
+        fetch: "/customers",
+        label: "Khách hàng",
+        number: 22,
+        icon: <Person2 fontSize="small" color="warning" />,
+    },
+    {
+        fetch: "/stars",
+        label: "Đánh giá",
+        number: 141,
+        icon: <StarBorder fontSize="small" color="secondary" />,
     },
 ]

@@ -14,6 +14,7 @@ import {
     getDetailProductLoader,
     pathRoutes,
     Dashboard,
+    OverView,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -50,8 +51,8 @@ const router = createBrowserRouter([
         element: <ProtectedLayout />,
         children: [
             {
-                path: "manager/:username",
-                element: <div>Setting</div>,
+                path: "cart",
+                element: <div>Cart</div>,
             },
         ],
     },
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
                 path: pathRoutes.dashboard,
                 element: <Dashboard />,
                 children: [
+                    {
+                        index: true,
+                        element: <OverView />,
+                    },
                     {
                         path: pathRoutes.customer,
                         element: <div>User Controller</div>,
