@@ -11,7 +11,7 @@ export const SignIn = lazy(() => import("@/pages/SignIn"))
 export const SignUp = lazy(() => import("@/pages/SignUp"))
 export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
-
+export const VerifyOTP = lazy(() => import("@/pages/VerifyOTP"))
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
 
@@ -28,6 +28,7 @@ export const pathRoutes = {
     voucher: "voucher",
     product: "product",
     store: "store",
+    verifyOTP: "verify-otp",
 }
 
 // Loaders

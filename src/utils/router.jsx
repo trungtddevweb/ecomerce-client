@@ -4,6 +4,7 @@ import AuthLayout from "@/layouts/AuthLayout"
 import MainLayout from "@/layouts/MainLayout"
 import NoHeaderLayout from "@/layouts/NoHeaderLayout"
 import ProtectedLayout from "@/layouts/ProtectedLayout"
+import OTPLayout from "@/layouts/OTPLayout"
 
 import {
     Error,
@@ -15,6 +16,7 @@ import {
     pathRoutes,
     Dashboard,
     OverView,
+    VerifyOTP,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -44,6 +46,15 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.signIn,
                 element: <SignIn />,
+            },
+        ],
+    },
+    {
+        element: <OTPLayout />,
+        children: [
+            {
+                path: pathRoutes.verifyOTP,
+                element: <VerifyOTP />,
             },
         ],
     },
