@@ -11,6 +11,7 @@ export const SignIn = lazy(() => import("@/pages/SignIn"))
 export const SignUp = lazy(() => import("@/pages/SignUp"))
 export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
+export const Cart = lazy(() => import("@/pages/Cart"))
 
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
@@ -28,6 +29,7 @@ export const pathRoutes = {
     voucher: "voucher",
     product: "product",
     store: "store",
+    cart: "cart",
 }
 
 // Loaders

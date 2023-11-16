@@ -5,16 +5,16 @@ import { Suspense } from "react"
 import SpinnerAnimation from "@/components/fallback/Spinner/SpinnerAnimation"
 
 export default function MainLayout() {
-  return (
-    <>
-      <Header />
-      <main className="mt-16 mb-4 min-h-screen">
-        <Suspense fallback={<SpinnerAnimation />}>
-          <Outlet />
-        </Suspense>
-      </main>
-      <Footer />
-      <ScrollRestoration />
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <main className="mt-20 mb-4 min-h-screen">
+                <Suspense fallback={<SpinnerAnimation />}>
+                    <Outlet />
+                </Suspense>
+            </main>
+            <Footer />
+            <ScrollRestoration />
+        </>
+    )
 }
