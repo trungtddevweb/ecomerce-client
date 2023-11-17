@@ -16,6 +16,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { useLoaderData, useNavigate } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { Navigation, Autoplay } from "swiper/modules"
 
 import useStyles from "@/assets/styles"
@@ -37,6 +38,7 @@ const ProductDettail = () => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
     const navigate = useNavigate()
 
+    const [searchParams, setSearchParams] = useSearchParams()
     const [hoveredImage, setHoveredImage] = useState(null)
     const [open, setOpen] = useState(false)
     const [infoProduct, setInfoProduct] = useState({

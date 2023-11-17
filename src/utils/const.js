@@ -13,6 +13,10 @@ export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 export const Cart = lazy(() => import("@/pages/Cart"))
 
+export const VerifyEmailOTP = lazy(() => import("@/pages/VerifyEmailOTP"))
+export const VerifyPassOTP = lazy(() => import("@/pages/VerifyPassOTP"))
+export const Forgot = lazy(() => import("@/pages/Forgot"))
+export const ChangePass = lazy(() => import("@/pages/ChangePass"))
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
 
@@ -30,6 +34,10 @@ export const pathRoutes = {
     product: "product",
     store: "store",
     cart: "cart",
+    verifyEmailOTP: "verify-email",
+    verifyPassOTP: "verify-pass",
+    forgot: "forgot",
+    changePass: "change-pass",
 }
 
 // Loaders

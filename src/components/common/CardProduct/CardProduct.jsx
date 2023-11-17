@@ -27,8 +27,10 @@ const CardProduct = ({ product }) => {
                             {name}
                         </Typography>
                         <Stack direction="row" justifyContent="space-between">
-                            <Typography color="error">{price}đ</Typography>
-                            <Typography>{sold}</Typography>
+                            <Typography color="error">
+                                {price.toLocaleString("vi-VN")}đ
+                            </Typography>
+                            <Typography>Đã bán: {sold}</Typography>
                         </Stack>
                     </CardContent>
                 </CardActionArea>

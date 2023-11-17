@@ -24,7 +24,7 @@ import registerBg from "@/assets/images/bg-register.jpg"
 import { loginSuccess } from "@/redux/userSlice"
 import TypeErrorMsg from "@/components/common/TypeErrorMsg"
 import { ErrorMessage } from "@hookform/error-message"
-import { signInWithGoogleAPI, signUpAPI } from "@/api/main"
+import { signInWithGoogleAPI, signUpAPI, userAuthAPI } from "@/api/main"
 import { showToast } from "@/redux/toastSlice"
 import Seo from "@/components/feature/Seo"
 
@@ -73,11 +73,21 @@ const SignUp = () => {
     const onSubmit = async (data) => {
         try {
             setLoading(true)
-            await signUpAPI(data)
-            dispatch(
-                showToast({ type: "success", message: "Đăng ký thành công!" }),
-            )
-            navigate("/sign-in")
+            const res = await signUpAPI(data)
+            console.log(res)
+            if (res.status === 201) {
+                await userAuthAPI(data)
+                dispatch(
+                    showToast({
+                        type: "success",
+                        message: `Mã OTP đã được gửi về ${res.data.email}`,
+                    }),
+                )
+
+                navigate("/verify-email", {
+                    state: { email: res.data.email },
+                })
+            }
         } catch (err) {
             setError(err.response?.data.message)
         } finally {

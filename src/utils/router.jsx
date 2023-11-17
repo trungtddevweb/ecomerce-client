@@ -4,6 +4,7 @@ import AuthLayout from "@/layouts/AuthLayout"
 import MainLayout from "@/layouts/MainLayout"
 import NoHeaderLayout from "@/layouts/NoHeaderLayout"
 import ProtectedLayout from "@/layouts/ProtectedLayout"
+import OTPLayout from "@/layouts/OTPLayout"
 
 import {
     Error,
@@ -17,6 +18,10 @@ import {
     OverView,
     Cart,
     getCartLoader,
+    VerifyEmailOTP,
+    VerifyPassOTP,
+    Forgot,
+    ChangePass,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -46,6 +51,27 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.signIn,
                 element: <SignIn />,
+            },
+        ],
+    },
+    {
+        element: <OTPLayout />,
+        children: [
+            {
+                path: pathRoutes.verifyEmailOTP,
+                element: <VerifyEmailOTP />,
+            },
+            {
+                path: pathRoutes.forgot,
+                element: <Forgot />,
+            },
+            {
+                path: pathRoutes.verifyPassOTP,
+                element: <VerifyPassOTP />,
+            },
+            {
+                path: pathRoutes.changePass,
+                element: <ChangePass />,
             },
         ],
     },

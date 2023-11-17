@@ -22,6 +22,32 @@ export const signOutAPI = async () => {
     return await mainAPI.post("/auth/sign-out", null)
 }
 
+//Verify
+
+export const userAuthAPI = async (data) => {
+    return await mainAPI.post("/auth/user-authentication", data)
+}
+
+export const verifyEmailOTPAPI = async (data) => {
+    const res = await mainAPI.post("/auth/verify-email", data)
+    return res.data
+}
+
+export const forgotAuthAPI = async (data) => {
+    const res = await mainAPI.post("/auth/forgot-password", data)
+    return res.data
+}
+
+export const verifyForgotPassAPI = async (data) => {
+    const res = await mainAPI.post("/auth/verify-otp", data)
+    return res.data
+}
+
+export const changePassAPI = async (data) => {
+    const res = await mainAPI.post("/auth/change-password", data)
+    return res.data
+}
+
 // PRODUCT API
 
 export const getProductDetailAPI = async (productId) => {
