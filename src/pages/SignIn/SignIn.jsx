@@ -97,7 +97,7 @@ const SignIn = () => {
     return (
         <Fragment>
             <Seo
-                title="Coffee Store | Đăng nhập "
+                title="Đăng nhập "
                 description="Coffee Store buy everything you want"
                 type="webapp"
                 name="Coffee Store"
