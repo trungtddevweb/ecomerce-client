@@ -1,5 +1,5 @@
 import { useState, Fragment, useEffect } from "react"
-import { Box, Typography, Stack } from "@mui/material"
+import { Box, Typography, Stack, Button } from "@mui/material"
 import LoadingButton from "@mui/lab/LoadingButton"
 import SecurityIcon from "@mui/icons-material/Security"
 import { MuiOtpInput } from "mui-one-time-password-input"
@@ -54,7 +54,6 @@ const VerifyPassOTP = () => {
                         message: res.message,
                     }),
                 )
-                navigate("/change-pass", { state: { email: email } })
             }
         } catch (error) {
             console.log(error)
@@ -71,6 +70,7 @@ const VerifyPassOTP = () => {
                 navigate("/change-pass", { state: { email } })
             }
         } catch (err) {
+            setLoading(false)
             dispatch(
                 showToast({
                     type: "error",
@@ -114,13 +114,9 @@ const VerifyPassOTP = () => {
                                 {seconds < 10 ? `0${seconds}` : seconds}
                             </Typography>
                         ) : (
-                            <LoadingButton
-                                loading={loading}
-                                variant="text"
-                                onClick={resendOTP}
-                            >
+                            <Button variant="text" onClick={resendOTP}>
                                 Gửi lại mã
-                            </LoadingButton>
+                            </Button>
                         )}
                         <LoadingButton
                             loading={loading}
