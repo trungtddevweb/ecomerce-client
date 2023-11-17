@@ -3,7 +3,7 @@ import { Link, useRouteError } from "react-router-dom"
 
 const Error = () => {
     const error = useRouteError()
-    console.log("error------", error)
+    console.log("Erorr", error)
     return (
         <Stack direction="row" spacing={1}>
             Đã có lỗi xảy ra: {error.statusText || error}

@@ -38,6 +38,7 @@ const router = createBrowserRouter([
     },
     {
         element: <AuthLayout />,
+        errorElement: <Error />,
         children: [
             {
                 path: pathRoutes.signUp,
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
     },
     {
         element: <NoHeaderLayout />,
+        errorElement: <Error />,
         children: [
             {
                 path: pathRoutes.dashboard,
