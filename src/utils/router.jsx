@@ -16,6 +16,8 @@ import {
     pathRoutes,
     Dashboard,
     OverView,
+    Cart,
+    getCartLoader,
     VerifyEmailOTP,
     VerifyPassOTP,
     Forgot,
@@ -77,8 +79,9 @@ const router = createBrowserRouter([
         element: <ProtectedLayout />,
         children: [
             {
-                path: "cart",
-                element: <div>Cart</div>,
+                path: pathRoutes.cart,
+                element: <Cart />,
+                loader: getCartLoader,
             },
         ],
     },

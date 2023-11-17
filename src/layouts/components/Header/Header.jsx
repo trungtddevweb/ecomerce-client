@@ -95,6 +95,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export default function Header(props) {
     const { mode, setMode } = useColorScheme()
     const { data: user } = useFetch("/user/get-user")
+    const cartCount = useSelector((state) => state.auth.carts)
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -181,9 +182,14 @@ export default function Header(props) {
                                     size="large"
                                     aria-label="show 17 new notifications"
                                     color="inherit"
+                                    onClick={() =>
+                                        navigate(`/${pathRoutes.cart}`)
+                                    }
                                 >
                                     <Badge
-                                        badgeContent={user?.carts.length || 0}
+                                        badgeContent={
+                                            cartCount ? cartCount.length : 0
+                                        }
                                         color="error"
                                     >
                                         <ShoppingCart />
