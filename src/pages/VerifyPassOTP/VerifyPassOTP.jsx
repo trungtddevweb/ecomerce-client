@@ -70,6 +70,7 @@ const VerifyPassOTP = () => {
                 navigate("/change-pass", { state: { email } })
             }
         } catch (err) {
+            setLoading(false)
             dispatch(
                 showToast({
                     type: "error",
