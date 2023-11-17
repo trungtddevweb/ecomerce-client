@@ -16,6 +16,7 @@ import {
     Dashboard,
     OverView,
     Cart,
+    getCartLoader,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.cart,
                 element: <Cart />,
+                loader: getCartLoader,
             },
         ],
     },

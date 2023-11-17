@@ -182,6 +182,9 @@ export default function Header(props) {
                                     size="large"
                                     aria-label="show 17 new notifications"
                                     color="inherit"
+                                    onClick={() =>
+                                        navigate(`/${pathRoutes.cart}`)
+                                    }
                                 >
                                     <Badge
                                         badgeContent={

@@ -1,4 +1,4 @@
-import { getProductDetailAPI } from "@/api/main"
+import { getCartAPI, getProductDetailAPI } from "@/api/main"
 import { lazy } from "react"
 
 export const clientId = import.meta.env.VITE_APP_CLIENTID_KEY
@@ -50,4 +50,8 @@ export const pathRoutes = {
 
 export const getDetailProductLoader = async ({ params }) => {
     return await getProductDetailAPI(params.productId)
+}
+
+export const getCartLoader = async () => {
+    return await getCartAPI()
 }

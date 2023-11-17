@@ -43,10 +43,10 @@ export const getUserInfoAPI = async () => {
 export const addProductToCartAPI = async (payload) =>
     await mainAPI.post("/user/add-products-to-cart", payload)
 
-// export const getPostByTagAPI = async (tagName) => {
-//   const res = await mainAPI.get(`/post/tag/${tagName}`)
-//   return res.data
-// }
+export const getCartAPI = async () => {
+    const response = await mainAPI.get("/user/get-user")
+    return response.data.carts
+}
 
 // export const getPostTrendingAPI = async () => {
 //   const res = await mainAPI.get("/post/trending")

@@ -24,16 +24,15 @@ export const userSlice = createSlice({
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
             const existingProduct = state.carts.find(
                 (product) =>
-                    product._id === action.payload._id &&
+                    product.productId === action.payload.productId &&
                     product.color === action.payload.color,
             )
-
             if (existingProduct) {
                 // Nếu đã tồn tại, tăng số lượng sản phẩm
                 existingProduct.quantity += action.payload.quantity
             } else {
                 // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
-                state.carts.push({ ...action.payload })
+                state.carts = action.payload
             }
         },
     },

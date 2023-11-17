@@ -82,7 +82,7 @@ const ProductDettail = () => {
                 dispatch(
                     showToast({
                         type: "error",
-                        message: "Có lỗi xảy ra",
+                        message: `Có lỗi xảy ra ${error}`,
                     }),
                 )
             }
