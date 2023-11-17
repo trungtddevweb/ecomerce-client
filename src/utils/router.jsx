@@ -16,7 +16,10 @@ import {
     pathRoutes,
     Dashboard,
     OverView,
-    VerifyOTP,
+    VerifyEmailOTP,
+    VerifyPassOTP,
+    Forgot,
+    ChangePass,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -53,8 +56,20 @@ const router = createBrowserRouter([
         element: <OTPLayout />,
         children: [
             {
-                path: pathRoutes.verifyOTP,
-                element: <VerifyOTP />,
+                path: pathRoutes.verifyEmailOTP,
+                element: <VerifyEmailOTP />,
+            },
+            {
+                path: pathRoutes.forgot,
+                element: <Forgot />,
+            },
+            {
+                path: pathRoutes.verifyPassOTP,
+                element: <VerifyPassOTP />,
+            },
+            {
+                path: pathRoutes.changePass,
+                element: <ChangePass />,
             },
         ],
     },

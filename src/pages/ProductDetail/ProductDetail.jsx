@@ -16,7 +16,7 @@ import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useSearchParams } from "react-router-dom"
 import { Navigation, Autoplay } from "swiper/modules"
 
 import useStyles from "@/assets/styles"
@@ -26,27 +26,60 @@ import Comments from "./Comments"
 const ProductDettail = () => {
     const product = useLoaderData()
     const classes = useStyles()
-
+    const [searchParams, setSearchParams] = useSearchParams()
     const [hoveredImage, setHoveredImage] = useState(null)
-    const [value, setValue] = useState(1)
-    const [selectedColor, setSelectedColor] = useState()
-    const [selectedSize, setSelectedSize] = useState()
+
+    const color = searchParams.get("color")
+    const size = searchParams.get("size")
+    const inputValue = parseInt(searchParams.get("inputValue") || 1)
 
     // Handlers
     const handleChangeColor = (event, newAlignment) => {
-        setSelectedColor(newAlignment)
+        setSearchParams(
+            (prev) => {
+                prev.set("color", newAlignment)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const handleChangeSize = (event, newAlignment) => {
-        setSelectedSize(newAlignment)
+        setSearchParams(
+            (prev) => {
+                prev.set("size", newAlignment)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const handleImageHover = (image) => {
         setHoveredImage(image)
     }
     const addValue = () => {
-        setValue(value + 1)
+        setSearchParams(
+            (prev) => {
+                prev.set("inputValue", inputValue + 1)
+                return prev
+            },
+            { replace: true },
+        )
     }
     const minusValue = () => {
-        value <= 1 ? setValue(1) : setValue(value - 1)
+        inputValue <= 1
+            ? setSearchParams(
+                  (prev) => {
+                      prev.set("inputValue", 1)
+                      return prev
+                  },
+                  { replace: true },
+              )
+            : setSearchParams(
+                  (prev) => {
+                      prev.set("inputValue", inputValue - 1)
+                      return prev
+                  },
+                  { replace: true },
+              )
     }
 
     return (
@@ -116,9 +149,9 @@ const ProductDettail = () => {
                             alignItems="center"
                             sx={{ mb: 3 }}
                         >
-                            <Typography>Giá:</Typography>
+                            <Typography sx={{ width: "20%" }}>Giá:</Typography>
                             <Typography color="error" variant="h4">
-                                {product.price}đ
+                                {product.price.toLocaleString("vi-VN")}đ
                             </Typography>
                         </Stack>
                         <Stack
@@ -127,12 +160,14 @@ const ProductDettail = () => {
                             spacing={2}
                             alignItems="center"
                         >
-                            <Typography>Màu sắc:</Typography>
+                            <Typography sx={{ width: "20%" }}>
+                                Màu sắc:
+                            </Typography>
 
                             <ToggleButtonGroup
                                 color="primary"
                                 required
-                                value={selectedColor}
+                                value={color}
                                 exclusive
                                 onChange={handleChangeColor}
                                 aria-label="Select color"
@@ -150,10 +185,12 @@ const ProductDettail = () => {
                             sx={{ mb: 3 }}
                             alignItems="center"
                         >
-                            <Typography>Kích thước:</Typography>
+                            <Typography sx={{ width: "20%" }}>
+                                Kích thước:
+                            </Typography>
                             <ToggleButtonGroup
                                 color="primary"
-                                value={selectedSize}
+                                value={size}
                                 exclusive
                                 onChange={handleChangeSize}
                                 aria-label="Select Size"
@@ -171,20 +208,28 @@ const ProductDettail = () => {
                             sx={{ mb: 4 }}
                             spacing={2}
                         >
-                            <Typography>Số lượng:</Typography>
+                            <Typography sx={{ width: "20%" }}>
+                                Số lượng:
+                            </Typography>
                             <Typography> {product.quantity}</Typography>
                             <Stack direction="row">
                                 <Button variant="outlined" onClick={addValue}>
                                     <AddIcon />
                                 </Button>
                                 <TextField
-                                    value={value}
+                                    value={inputValue}
                                     type="number"
                                     onChange={(e) => {
                                         const newValue = parseInt(
                                             e.target.value,
                                         )
-                                        setValue(newValue)
+                                        setSearchParams(
+                                            (prev) => {
+                                                prev.set("inputValue", newValue)
+                                                return prev
+                                            },
+                                            { replace: true },
+                                        )
                                     }}
                                 />
                                 <Button variant="outlined" onClick={minusValue}>

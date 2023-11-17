@@ -220,12 +220,14 @@ const SignIn = () => {
                                                 label="Ghi nhớ đăng nhập"
                                             />
                                         </FormGroup>
-                                        <Typography
-                                            variant="subtitle2"
-                                            color="primary"
-                                        >
-                                            Quên mật khẩu
-                                        </Typography>
+                                        <Link to="/forgot">
+                                            <Typography
+                                                variant="subtitle2"
+                                                color="primary"
+                                            >
+                                                Quên mật khẩu
+                                            </Typography>
+                                        </Link>
                                     </Stack>
                                     <LoadingButton
                                         loading={loading}

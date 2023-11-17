@@ -1,17 +1,40 @@
 import { Box, Grid } from "@mui/material"
-
 import TitleHeading from "@/components/feature/TitleHeading"
 import CardProduct from "@/components/common/CardProduct"
 import useFetch from "@/hooks/useFetch"
+import useStyles from "@/assets/styles"
+import SkeletonFallback from "@/components/fallback/Skeleton/SkeletonFallback"
 
 const NewProducts = () => {
+    const classes = useStyles()
     const { data, loading, error } = useFetch("/products")
-    if (loading) return <div>Fallback</div>
+    if (loading)
+        return (
+            <Box className={classes.marginAuto} py={3}>
+                <Grid container spacing={1}>
+                    <Grid item xs={2.4}>
+                        <SkeletonFallback />
+                    </Grid>
+                    <Grid item xs={2.4}>
+                        <SkeletonFallback />
+                    </Grid>
+                    <Grid item xs={2.4}>
+                        <SkeletonFallback />
+                    </Grid>
+                    <Grid item xs={2.4}>
+                        <SkeletonFallback />
+                    </Grid>
+                    <Grid item xs={2.4}>
+                        <SkeletonFallback />
+                    </Grid>
+                </Grid>
+            </Box>
+        )
 
     if (error) return <div>error</div>
 
     return (
-        <Box className="main-w flex flex-col items-center">
+        <Box className={classes.marginAuto}>
             <TitleHeading title="Sản phẩm mới" />
             <Grid container spacing={1}>
                 {data &&

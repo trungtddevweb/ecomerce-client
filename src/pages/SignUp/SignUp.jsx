@@ -84,7 +84,7 @@ const SignUp = () => {
                     }),
                 )
 
-                navigate("/verify-otp", {
+                navigate("/verify-email", {
                     state: { email: res.data.email },
                 })
             }

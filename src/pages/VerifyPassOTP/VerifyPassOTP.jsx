@@ -1,18 +1,20 @@
 import { useState, Fragment, useEffect } from "react"
-import { Box, Typography, Button, Stack } from "@mui/material"
+import { Box, Typography, Stack } from "@mui/material"
+import LoadingButton from "@mui/lab/LoadingButton"
 import SecurityIcon from "@mui/icons-material/Security"
 import { MuiOtpInput } from "mui-one-time-password-input"
 import { useNavigate, useLocation } from "react-router-dom"
-import { userAuthAPI, verifyEmailOTPAPI } from "@/api/main"
+import { forgotAuthAPI, verifyForgotPassAPI } from "@/api/main"
 import { useDispatch } from "react-redux"
 import { showToast } from "@/redux/toastSlice"
 import Seo from "@/components/feature/Seo"
 
-const VerifyOTP = () => {
+const VerifyPassOTP = () => {
     const [otp, setOtp] = useState("")
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
     const email = location.state?.email || null
     const [minutes, setMinutes] = useState(1)
     const [seconds, setSeconds] = useState(0)
@@ -40,25 +42,48 @@ const VerifyOTP = () => {
         setOtp(newValue)
     }
 
-    const resendOTP = () => {
+    const resendOTP = async () => {
         setMinutes(1)
         setSeconds(0)
-        userAuthAPI({ email })
+        try {
+            const res = await forgotAuthAPI({ email })
+            if (res.success) {
+                dispatch(
+                    showToast({
+                        type: "success",
+                        message: res.message,
+                    }),
+                )
+                navigate("/change-pass", { state: { email: email } })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const verifyOTP = async () => {
-        const res = await verifyEmailOTPAPI({ email, token: otp })
-        console.log(res)
-        if (res.success) {
-            dispatch(showToast({ type: "success", message: res.message }))
-            navigate("/sign-in")
+        try {
+            setLoading(true)
+            const res = await verifyForgotPassAPI({ email, token: otp })
+            console.log(res)
+            if (res.success) {
+                dispatch(showToast({ type: "success", message: res.message }))
+                navigate("/change-pass", { state: { email } })
+            }
+        } catch (err) {
+            dispatch(
+                showToast({
+                    type: "error",
+                    message: err.response?.data.message,
+                }),
+            )
         }
     }
 
     return (
         <Fragment>
             <Seo
-                title="May Store | Xác thực "
+                title=" Xác thực mật khẩu "
                 description="Buy everything you need"
                 type="webapp"
                 name="May Store"
@@ -83,23 +108,27 @@ const VerifyOTP = () => {
                         mt={2}
                     >
                         {seconds > 0 || minutes > 0 ? (
-                            <Typography sx={{ color: "" }}>
+                            <Typography color="primary">
                                 Mã có hiêu lực trong:
                                 {minutes < 10 ? `0${minutes}` : minutes}:
                                 {seconds < 10 ? `0${seconds}` : seconds}
                             </Typography>
                         ) : (
-                            <Typography
+                            <LoadingButton
+                                loading={loading}
+                                variant="text"
                                 onClick={resendOTP}
-                                sx={{ cursor: "pointer" }}
                             >
                                 Gửi lại mã
-                            </Typography>
+                            </LoadingButton>
                         )}
-                        <Button variant="contained" onClick={verifyOTP}>
+                        <LoadingButton
+                            loading={loading}
+                            variant="contained"
+                            onClick={verifyOTP}
+                        >
                             Xác thực OTP
-                        </Button>
-                        {email}
+                        </LoadingButton>
                     </Stack>
                 </Box>
             </Box>
@@ -107,4 +136,4 @@ const VerifyOTP = () => {
     )
 }
 
-export default VerifyOTP
+export default VerifyPassOTP
