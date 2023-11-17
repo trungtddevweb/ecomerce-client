@@ -1,4 +1,4 @@
-import { getProductDetailAPI } from "@/api/main"
+import { getCartAPI, getProductDetailAPI } from "@/api/main"
 import { lazy } from "react"
 
 export const clientId = import.meta.env.VITE_APP_CLIENTID_KEY
@@ -11,6 +11,7 @@ export const SignIn = lazy(() => import("@/pages/SignIn"))
 export const SignUp = lazy(() => import("@/pages/SignUp"))
 export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
+export const Cart = lazy(() => import("@/pages/Cart"))
 
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
@@ -28,6 +29,7 @@ export const pathRoutes = {
     voucher: "voucher",
     product: "product",
     store: "store",
+    cart: "cart",
 }
 
 // Loaders
@@ -48,4 +50,8 @@ export const pathRoutes = {
 
 export const getDetailProductLoader = async ({ params }) => {
     return await getProductDetailAPI(params.productId)
+}
+
+export const getCartLoader = async () => {
+    return await getCartAPI()
 }
