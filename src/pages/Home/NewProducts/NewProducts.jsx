@@ -34,8 +34,10 @@ const NewProducts = () => {
     if (error) return <div>error</div>
 
     return (
-        <Box className={classes.marginAuto}>
-            <TitleHeading title="Sản phẩm mới" />
+        <Box className={classes.marginAuto} py={5}>
+            <Box className="text-center mb-2">
+                <TitleHeading title="Sản phẩm mới" />
+            </Box>
             <Grid container spacing={1}>
                 {data &&
                     data.docs.map((item) => (
