@@ -9,11 +9,12 @@ import { formatPrice } from "@/utils/format"
 
 const Cart = () => {
     const carts = useLoaderData()
-    const cartLength = carts.length
-    const totalPrice = carts.reduce(
+    const cartLength = carts?.length
+    const totalPrice = carts?.reduce(
         (cart, currentValue) => cart + currentValue.sumPrice,
         0,
     )
+
     return (
         <>
             <Seo title={`Giỏ hàng (${cartLength})`} />

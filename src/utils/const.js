@@ -35,9 +35,9 @@ export const pathRoutes = {
     store: "store",
     cart: "cart",
     verifyEmailOTP: "verify-email",
-    verifyPassOTP: "verify-pass",
-    forgot: "forgot",
-    changePass: "change-pass",
+    verifyPassOTP: "verify-password",
+    forgot: "forgot-password",
+    changePass: "change-password",
 }
 
 // Loaders

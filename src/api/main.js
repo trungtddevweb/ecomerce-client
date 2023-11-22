@@ -69,15 +69,14 @@ export const getUserInfoAPI = async () => {
 export const addProductToCartAPI = async (payload) =>
     await mainAPI.post("/user/add-products-to-cart", payload)
 
+export const removeProductFromCartAPI = async (itemId) => {
+    return await mainAPI.put("/user/remove-product-from-cart", itemId)
+}
+
 export const getCartAPI = async () => {
     const response = await mainAPI.get("/user/get-user")
     return response.data.carts
 }
-
-// export const getPostTrendingAPI = async () => {
-//   const res = await mainAPI.get("/post/trending")
-//   return res.data
-// }
 
 // export const getPostSavedAPI = async () => {
 //   const res = await mainAPI.get("/user/find/saved-post")

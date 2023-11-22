@@ -1,13 +1,13 @@
-import jwtDecode from 'jwt-decode'
+import jwtDecode from "jwt-decode"
 
 // Thời gian hết hạn của token (thời gian tính bằng giây)
 // const TOKEN_EXPIRATION_TIME = 3600;
 
 // Lấy token từ localStorage
-const getToken = () => localStorage.getItem('token')
+const getToken = () => localStorage.getItem("token")
 
 // Lưu token vào localStorage
-const setToken = (token) => localStorage.setItem('token', token)
+const setToken = (token) => localStorage.setItem("token", token)
 
 // Kiểm tra xem token có hết hạn hay không
 const isTokenExpired = (token) => {

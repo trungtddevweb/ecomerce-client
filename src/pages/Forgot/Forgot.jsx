@@ -39,7 +39,7 @@ const Forgot = () => {
     const {
         handleSubmit,
         control,
-        formState: { errors },
+        formState: { errors, isValid },
     } = useForm({
         defaultValues,
         mode: "onChange",
@@ -49,7 +49,6 @@ const Forgot = () => {
     const onSubmit = async (data) => {
         try {
             setLoading(true)
-            console.log(data)
             const res = await forgotAuthAPI(data)
             if (res.success) {
                 dispatch(showToast({ type: "success", message: res.message }))
@@ -69,7 +68,7 @@ const Forgot = () => {
     return (
         <Fragment>
             <Seo
-                title="May Store | Quên mật khẩu "
+                title="Quên mật khẩu "
                 description="Buy everything you need"
                 type="webapp"
                 name="May Store"
@@ -93,9 +92,8 @@ const Forgot = () => {
                     >
                         Quên mật khẩu
                     </Typography>
-
                     <Typography mb={3}>
-                        Vui lòng nhập email để tạo mật khẩu mới!
+                        Vui lòng nhập email mà đã liên kết với tài khoản của bạn
                     </Typography>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -125,10 +123,11 @@ const Forgot = () => {
                             <LoadingButton
                                 fullWidth
                                 loading={loading}
+                                disabled={!isValid}
                                 type="submit"
                                 variant="contained"
                             >
-                                search
+                                Tiếp theo
                             </LoadingButton>
                         </Grid>
                     </Grid>

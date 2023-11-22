@@ -1,15 +1,45 @@
 import PropTypes from "prop-types"
-import { formatPrice } from "@/utils/format"
-import { Delete } from "@mui/icons-material"
 import { Divider, IconButton, Stack, Tooltip, Typography } from "@mui/material"
+import { Delete } from "@mui/icons-material"
+import { useDispatch } from "react-redux"
+
+import { formatPrice } from "@/utils/format"
 import useFetch from "@/hooks/useFetch"
+import { removeProductFromCartAPI } from "@/api/main"
+import { showToast } from "@/redux/toastSlice"
 
 const CartItem = ({ cart }) => {
     const { data: product, loading } = useFetch(
         `/products/find/${cart.productId}`,
     )
 
-    if (loading) return <div>Loading...</div>
+    const dispatch = useDispatch()
+
+    const handleDelete = async () => {
+        try {
+            const response = await removeProductFromCartAPI({
+                itemId: cart._id,
+            })
+            if (response.status === 200) {
+                dispatch(
+                    showToast({
+                        type: "success",
+                        message: "Sản phẩm đã được xóa khỏi giỏ",
+                    }),
+                )
+            }
+        } catch (error) {
+            console.error(error)
+            dispatch(
+                showToast({
+                    type: "error",
+                    message: "Có lỗi xảy ra hãy thử lại",
+                }),
+            )
+        }
+    }
+
+    if (loading) return <Typography>Loading...</Typography>
 
     return (
         <>
@@ -72,6 +102,7 @@ const CartItem = ({ cart }) => {
                                     height: "max-content",
                                     flexDirection: "flex-end",
                                 }}
+                                onClick={handleDelete}
                             >
                                 <Delete />
                             </IconButton>

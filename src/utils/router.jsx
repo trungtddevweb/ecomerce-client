@@ -78,6 +78,7 @@ const router = createBrowserRouter([
     },
     {
         element: <ProtectedLayout />,
+        errorElement: <div>Error</div>,
         children: [
             {
                 path: pathRoutes.cart,

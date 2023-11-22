@@ -29,6 +29,7 @@ import TypeErrorMsg from "@/components/common/TypeErrorMsg"
 import { ErrorMessage } from "@hookform/error-message"
 import { signInAPI, signInWithGoogleAPI } from "@/api/main"
 import Seo from "@/components/feature/Seo"
+import { pathRoutes } from "@/utils/const"
 
 const SignIn = () => {
     const dispatch = useDispatch()
@@ -220,7 +221,7 @@ const SignIn = () => {
                                                 label="Ghi nhớ đăng nhập"
                                             />
                                         </FormGroup>
-                                        <Link to="/forgot">
+                                        <Link to={`/${pathRoutes.forgot}`}>
                                             <Typography
                                                 variant="subtitle2"
                                                 color="primary"
