@@ -71,7 +71,7 @@ const SignIn = () => {
             setLoading(true)
             const response = await signInAPI(data)
             dispatch(loginSuccess(response))
-            navigate(-1)
+            navigate(`/${pathRoutes.home}`)
         } catch (error) {
             setError(error.response?.data.message)
         } finally {
@@ -86,7 +86,7 @@ const SignIn = () => {
                 credentialResponse.credential,
             )
             dispatch(loginSuccess(decode))
-            navigate(-1)
+            navigate(`/${pathRoutes.home}`)
         } catch (error) {
             console.error(error)
             setError(error.response?.data.message)

@@ -3,8 +3,8 @@ import { Fragment } from "react"
 import { Divider, IconButton, Stack, Tooltip, Typography } from "@mui/material"
 import { Delete } from "@mui/icons-material"
 import { useDispatch } from "react-redux"
-
 import useFetch from "@/hooks/useFetch"
+
 import { formatPrice } from "@/utils/format"
 import { removeProductFromCartAPI } from "@/api/main"
 import { showToast } from "@/redux/toastSlice"

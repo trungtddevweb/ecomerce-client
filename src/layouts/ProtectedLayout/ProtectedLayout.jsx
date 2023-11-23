@@ -6,7 +6,7 @@ import SpinnerAnimation from "@/components/fallback/Spinner"
 import { pathRoutes } from "@/utils/const"
 import { isAuthenticated } from "@/services/auth"
 const ProtectedLayout = () => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated()) {
         return <Navigate to={pathRoutes.signIn} replace />
     }
 
