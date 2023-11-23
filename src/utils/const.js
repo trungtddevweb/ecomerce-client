@@ -13,6 +13,13 @@ export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 export const Cart = lazy(() => import("@/pages/Cart"))
 
+// Check Out
+export const CheckOut = lazy(() => import("@/pages/CheckOut"))
+export const InfoOrder = lazy(() => import("@/pages/CheckOut/InfoOrder"))
+export const PaymentMethods = lazy(() =>
+    import("@/pages/CheckOut/PaymentMethods"),
+)
+
 export const VerifyEmailOTP = lazy(() => import("@/pages/VerifyEmailOTP"))
 export const VerifyPassOTP = lazy(() => import("@/pages/VerifyPassOTP"))
 export const Forgot = lazy(() => import("@/pages/Forgot"))
@@ -27,8 +34,11 @@ export const pathRoutes = {
     signIn: "sign-in",
     signUp: "sign-up",
     dashboard: "dashboard",
-    customer: "customer",
     order: "order",
+    customer: "customer",
+    checkOut: "check-out",
+    infoOrder: "info-order",
+    paymentMethods: "payment-method",
     setting: "setting",
     voucher: "voucher",
     product: "product",
@@ -38,6 +48,7 @@ export const pathRoutes = {
     verifyPassOTP: "verify-password",
     forgot: "forgot-password",
     changePass: "change-password",
+    collection: "collection/all",
 }
 
 // Loaders

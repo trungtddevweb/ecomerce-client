@@ -35,10 +35,19 @@ export const userSlice = createSlice({
                 state.carts = action.payload
             }
         },
+        removeProductFromCart: (state, action) => {
+            state.carts = state.carts.filter(
+                (product) => product._id !== action.payload,
+            )
+        },
     },
 })
 
-export const { logoutSuccess, loginSuccess, addProductToCart } =
-    userSlice.actions
+export const {
+    logoutSuccess,
+    loginSuccess,
+    addProductToCart,
+    removeProductFromCart,
+} = userSlice.actions
 
 export default userSlice.reducer
