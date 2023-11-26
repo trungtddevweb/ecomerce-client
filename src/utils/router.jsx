@@ -24,6 +24,7 @@ import {
     CheckOut,
     InfoOrder,
     PaymentMethods,
+    getLocationLoader,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -88,6 +89,7 @@ const router = createBrowserRouter([
                         index: true,
                         path: pathRoutes.infoOrder,
                         element: <InfoOrder />,
+                        loader: getLocationLoader,
                     },
                     {
                         path: pathRoutes.paymentMethods,

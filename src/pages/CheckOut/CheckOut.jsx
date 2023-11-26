@@ -1,21 +1,24 @@
-import PropTypes from "prop-types"
-import { Fragment } from "react"
+import { Fragment, useLayoutEffect } from "react"
 import { Grid, Breadcrumbs, Link, Typography } from "@mui/material"
 import { NavigateNext } from "@mui/icons-material"
 import { Outlet, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
-import Seo from "@/components/feature/Seo"
 import { isAuthenticated } from "@/services/auth"
 import { pathRoutes } from "@/utils/const"
+import Seo from "@/components/feature/Seo"
+import InfoBill from "./InfoBill"
 
-const CheckOut = (props) => {
+const CheckOut = () => {
     const navigate = useNavigate()
+    const carts = useSelector((state) => state.auth.carts)
+    useLayoutEffect(() => {
+        if (!isAuthenticated()) return navigate(`${pathRoutes.home}`)
+    }, [navigate])
+
+    // Handlers
     const handleNavigate = (path) => {
         navigate(path)
-    }
-
-    if (!isAuthenticated()) {
-        return navigate(`/${pathRoutes.home}`)
     }
 
     const breadcrumbs = [
@@ -48,26 +51,25 @@ const CheckOut = (props) => {
         <Fragment>
             <Seo description="" title="Đặt hàng" />
             <Grid container>
-                <Grid item py={16} pl={32}>
+                <Grid item py={16} pl={32} xs={6}>
                     <Breadcrumbs
                         separator={<NavigateNext fontSize="small" />}
                         aria-label="breadcrumb"
                     >
                         {breadcrumbs}
                     </Breadcrumbs>
-                    <Typography variant="h6" mt={3}>
+                    <Typography variant="h6" my={3}>
                         Thông tin giao hàng
                     </Typography>
+                    <Outlet />
                 </Grid>
 
-                <Grid item>
-                    <Outlet />
+                <Grid item xs={6} p={8}>
+                    <InfoBill carts={carts} />
                 </Grid>
             </Grid>
         </Fragment>
     )
 }
-
-CheckOut.propTypes = {}
 
 export default CheckOut

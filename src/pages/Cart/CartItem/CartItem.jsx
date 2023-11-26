@@ -12,7 +12,8 @@ import { removeProductFromCart } from "@/redux/userSlice"
 
 const CartItem = ({ cart }) => {
     const dispatch = useDispatch()
-    const { data } = useFetch(`/products/find/${cart.productId._id}`)
+
+    const { data } = useFetch(`/products/find/${cart.productId}`)
     const handleDelete = async () => {
         try {
             const response = await removeProductFromCartAPI({

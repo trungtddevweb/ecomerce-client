@@ -146,8 +146,15 @@ const Cart = () => {
                                         onClick={() =>
                                             navigate(
                                                 `/${pathRoutes.checkOut}/${pathRoutes.infoOrder}`,
+                                                {
+                                                    state: {
+                                                        carts,
+                                                        totalPrice,
+                                                    },
+                                                },
                                             )
                                         }
+                                        disabled={cartLength === 0}
                                     >
                                         Thanh toán
                                     </Button>

@@ -76,3 +76,7 @@ input[type="number"] {
 .active-light {
     background-color: wheat !important;
 }
+
+.scrollable-content::-webkit-scrollbar {
+    display: none;
+}

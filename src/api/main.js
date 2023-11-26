@@ -1,5 +1,7 @@
+import axios from "axios"
 import { setToken } from "@/services/auth"
 import mainAPI from "./base"
+import { locationUrl } from "@/utils/const"
 
 // Auth APIs
 export const signUpAPI = async (data) => {
@@ -78,24 +80,23 @@ export const getCartAPI = async () => {
     return response.data.carts
 }
 
-// export const getPostSavedAPI = async () => {
-//   const res = await mainAPI.get("/user/find/saved-post")
-//   return res.data
-// }
-
-// export const toggleLikePostAPI = async (postId) => {
-//   const res = await mainAPI.post("/post/toggle-like", { postId })
-//   return res.data
-// }
-
-// User
-// export const addPostToSaveAPI = async (postId) => {
-//   const res = await mainAPI.post("/user/saved-post", { postId })
-//   return res.data
-// }
-
 // Comment
 export const createCommentAPI = async (data) => {
     const res = await mainAPI.post("/comment/", data)
     return res.data
+}
+
+// Location
+export const getLocationAPI = async () => {
+    return await axios.get(`${locationUrl}/p`)
+}
+
+export const getDistrictsAPI = async (code) => {
+    return await axios.get(`${locationUrl}/p/${code}?depth=2`)
+}
+
+// Order
+export const createOrderAPI = async (payload) => {
+    const response = await mainAPI.post("/order", payload)
+    return response.data
 }

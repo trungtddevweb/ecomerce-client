@@ -4,6 +4,7 @@ const initialState = {
     isLoggedIn: false,
     user: {},
     carts: [],
+    totalPrice: 0,
 }
 
 export const userSlice = createSlice({
