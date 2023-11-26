@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 import {
     Card,
     CardActionArea,
     CardContent,
     CardMedia,
     Typography,
-} from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import HTMLReactParser from 'html-react-parser'
+} from "@mui/material"
+import { useNavigate } from "react-router-dom"
+import HTMLReactParser from "html-react-parser"
 
-import useStyles from '@/assets/styles'
+import useStyles from "@/assets/styles"
 
 const CardItem = ({ post }) => {
     const { tag, _id, content, imagesUrl, title } = post
@@ -26,7 +26,7 @@ const CardItem = ({ post }) => {
                 <CardMedia
                     component="img"
                     height="140"
-                    sx={{ maxHeight: '160px' }}
+                    sx={{ maxHeight: "160px" }}
                     image={imagesUrl}
                     alt={title}
                 />

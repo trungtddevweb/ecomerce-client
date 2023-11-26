@@ -5,6 +5,8 @@ import banner1 from "@/assets/imgs/banner1.webp"
 import SaleProducts from "@/components/SaleProducts/SaleProducts"
 import useStyles from "@/assets/styles"
 import NewProducts from "./NewProducts"
+import ListProducts from "@/components/ListProducts/ListProduct"
+import Ordering from "@/components/Ordering/Ordering"
 
 const Home = () => {
     const classes = useStyles()
@@ -21,8 +23,8 @@ const Home = () => {
                     <CardMedia component="img" src={banner1} alt="banner" />
                 </Card>
             </Box>
+            <ListProducts />
             <NewProducts />
-
             <Card>
                 <CardMedia
                     component="img"
@@ -30,6 +32,7 @@ const Home = () => {
                 />
             </Card>
             <SaleProducts />
+            <Ordering />
         </>
     )
 }
