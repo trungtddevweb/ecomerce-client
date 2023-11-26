@@ -2,6 +2,7 @@ import PropTypes from "prop-types"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {
+    Call,
     ExpandMore,
     KeyboardArrowRight,
     Logout,
@@ -27,8 +28,6 @@ import {
     Tooltip,
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
-import MailIcon from "@mui/icons-material/Mail"
-import NotificationsIcon from "@mui/icons-material/Notifications"
 import styled from "@emotion/styled"
 import { Link, redirect, useNavigate } from "react-router-dom"
 import HideOnScroll from "../HideOnScroll"
@@ -170,7 +169,18 @@ export default function Header(props) {
                                 inputProps={{ "aria-label": "search" }}
                             />
                         </Search>
-                        <Box sx={{ flexGrow: 1 }} />
+                        <Box sx={{ flexGrow: 0.5 }} />
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Call color="success" fontSize="large" />
+                            <Box>
+                                <Typography variant="subtitle2">
+                                    Hotline
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    0123.456.789
+                                </Typography>
+                            </Box>
+                        </Stack>
                         <Box
                             display="flex"
                             alignItems="center"
@@ -197,30 +207,6 @@ export default function Header(props) {
                                 </IconButton>
                                 {isLoggedIn ? (
                                     <>
-                                        <IconButton
-                                            size="large"
-                                            aria-label="show 4 new mails"
-                                            color="inherit"
-                                        >
-                                            <Badge
-                                                badgeContent={4}
-                                                color="error"
-                                            >
-                                                <MailIcon />
-                                            </Badge>
-                                        </IconButton>
-                                        <IconButton
-                                            size="large"
-                                            aria-label="show 17 new notifications"
-                                            color="inherit"
-                                        >
-                                            <Badge
-                                                badgeContent={17}
-                                                color="error"
-                                            >
-                                                <NotificationsIcon />
-                                            </Badge>
-                                        </IconButton>
                                         <Stack
                                             direction="row"
                                             spacing={1}
