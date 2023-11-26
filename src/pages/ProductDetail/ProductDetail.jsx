@@ -33,6 +33,7 @@ import { addProductToCart } from "@/redux/userSlice"
 
 const ProductDettail = () => {
     const product = useLoaderData()
+    console.log(product.comments)
     const classes = useStyles()
     const dispatch = useDispatch()
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
@@ -41,6 +42,7 @@ const ProductDettail = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [hoveredImage, setHoveredImage] = useState(null)
     const [open, setOpen] = useState(false)
+
     // const [infoProduct, setInfoProduct] = useState({
     //     color: "",
     //     size: "",
@@ -378,7 +380,7 @@ const ProductDettail = () => {
                     </Box>
                 </Paper>
 
-                <Comments />
+                <Comments productId={product._id} comments={product.comments} />
                 <CustomDialog
                     open={open}
                     onClose={handleClose}
