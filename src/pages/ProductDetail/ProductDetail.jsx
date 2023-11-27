@@ -41,25 +41,64 @@ const ProductDettail = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [hoveredImage, setHoveredImage] = useState(null)
     const [open, setOpen] = useState(false)
-    const [infoProduct, setInfoProduct] = useState({
-        color: "",
-        size: "",
-        quantity: 1,
-    })
+    // const [infoProduct, setInfoProduct] = useState({
+    //     color: "",
+    //     size: "",
+    //     quantity: 1,
+    // })
+
+    // // Handlers
+    // const handleChangeValue = (event, name) => {
+    //     const { value } = event.target
+    //     setInfoProduct((prev) => ({ ...prev, [name]: value }))
+    // }
+
+    // const handleChangeQuantity = (type) => {
+    //     setInfoProduct((prev) => ({
+    //         ...prev,
+    //         quantity:
+    //             type === "increase" ? prev.quantity + 1 : prev.quantity - 1,
+    //     }))
+    // }
+
+    const initialInfoProduct = {
+        color: searchParams.get("color") || "",
+        size: searchParams.get("size") || "",
+        quantity: parseInt(searchParams.get("quantity")) || 1,
+    }
+
+    const [infoProduct, setInfoProduct] = useState(initialInfoProduct)
 
     // Handlers
     const handleChangeValue = (event, name) => {
         const { value } = event.target
-        setInfoProduct((prev) => ({ ...prev, [name]: value }))
+        setInfoProduct((prev) => {
+            const newInfoProduct = { ...prev, [name]: value }
+
+            // Update URL parameters
+            setSearchParams(new URLSearchParams(newInfoProduct), {
+                replace: true,
+            })
+
+            return newInfoProduct
+        })
     }
 
     const handleChangeQuantity = (type) => {
-        setInfoProduct((prev) => ({
-            ...prev,
-            quantity:
-                type === "increase" ? prev.quantity + 1 : prev.quantity - 1,
-        }))
+        setInfoProduct((prev) => {
+            const newQuantity =
+                type === "increase" ? prev.quantity + 1 : prev.quantity - 1
+            const newInfoProduct = { ...prev, quantity: newQuantity }
+
+            // Update URL parameters
+            setSearchParams(new URLSearchParams(newInfoProduct), {
+                replace: true,
+            })
+
+            return newInfoProduct
+        })
     }
+
     // Modal
     const handleClose = () => {
         setOpen(false)
@@ -210,7 +249,7 @@ const ProductDettail = () => {
                                     color="primary"
                                     name="color"
                                     required
-                                    value={infoProduct.color}
+                                    value={initialInfoProduct.color}
                                     exclusive
                                     onChange={(event) =>
                                         handleChangeValue(event, "color")
@@ -233,7 +272,7 @@ const ProductDettail = () => {
                                 <Typography>Kích thước:</Typography>
                                 <ToggleButtonGroup
                                     color="primary"
-                                    value={infoProduct.size}
+                                    value={initialInfoProduct.size}
                                     exclusive
                                     onChange={(event) =>
                                         handleChangeValue(event, "size")
@@ -257,7 +296,9 @@ const ProductDettail = () => {
                                 <Stack direction="row">
                                     <Button
                                         variant="outlined"
-                                        disabled={infoProduct.quantity <= 1}
+                                        disabled={
+                                            initialInfoProduct.quantity <= 1
+                                        }
                                         onClick={() =>
                                             handleChangeQuantity("decrease")
                                         }
@@ -336,6 +377,7 @@ const ProductDettail = () => {
                         <AnotherProducts />
                     </Box>
                 </Paper>
+
                 <Comments />
                 <CustomDialog
                     open={open}

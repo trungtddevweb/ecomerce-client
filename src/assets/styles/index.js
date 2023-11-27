@@ -89,6 +89,19 @@ const useStyles = makeStyles(() =>
             overflow: "hidden",
             textOverflow: "ellipsis",
         },
+        zoomImage: {
+            position: "relative",
+            overflow: "hidden",
+            "&:hover img": {
+                transform: "scale(1.1)",
+            },
+        },
+        zoomedImage: {
+            transition: "transform 0.3s ease-in-out",
+            display: "block",
+            width: "100%",
+            height: "auto",
+        },
     }),
 )
 
