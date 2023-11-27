@@ -13,17 +13,27 @@ import {
     Button,
 } from "@mui/material"
 import { CreditCard, LocalShipping } from "@mui/icons-material"
+import { useLocation, useNavigate } from "react-router-dom"
+
 import useStyles from "@/assets/styles"
 import { createOrderAPI } from "@/api/main"
 
-const PaymentMethods = (props) => {
-    const [paymentMethod, setPaymentMethod] = useState("cash")
+const PaymentMethods = () => {
     const classes = useStyles()
+    const [paymentMethod, setPaymentMethod] = useState("cash")
     const [loading, setLoading] = useState(false)
+    const location = useLocation()
+    const navigate = useNavigate()
     // Handlers
     const handleChange = (event, value) => {
         setPaymentMethod(value)
     }
+    const orderValue = {
+        ...location.state,
+        paymentMethod,
+    }
+    console.log(orderValue)
+
     const handleCreateOrder = async () => {
         setLoading(true)
         try {
@@ -105,7 +115,11 @@ const PaymentMethods = (props) => {
                     </Box>
                 </Collapse>
             </List>
-            <Button variant="contained" color="primary">
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={handleCreateOrder}
+            >
                 Hòan tất đơn hàng
             </Button>
         </Box>

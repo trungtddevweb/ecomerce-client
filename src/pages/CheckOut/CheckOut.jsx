@@ -12,6 +12,7 @@ import InfoBill from "./InfoBill"
 const CheckOut = () => {
     const navigate = useNavigate()
     const carts = useSelector((state) => state.auth.carts)
+
     useLayoutEffect(() => {
         if (!isAuthenticated()) return navigate(`${pathRoutes.home}`)
     }, [navigate])

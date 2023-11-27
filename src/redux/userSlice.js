@@ -4,7 +4,7 @@ const initialState = {
     isLoggedIn: false,
     user: {},
     carts: [],
-    totalPrice: 0,
+    order: {},
 }
 
 export const userSlice = createSlice({
@@ -41,6 +41,12 @@ export const userSlice = createSlice({
                 (product) => product._id !== action.payload,
             )
         },
+        createOrder: (state, action) => {
+            state.order = action.payload
+        },
+        clearCart: (state) => {
+            state.carts = []
+        },
     },
 })
 
@@ -49,6 +55,7 @@ export const {
     loginSuccess,
     addProductToCart,
     removeProductFromCart,
+    clearCart,
 } = userSlice.actions
 
 export default userSlice.reducer

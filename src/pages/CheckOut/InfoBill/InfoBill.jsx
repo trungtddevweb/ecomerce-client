@@ -11,7 +11,7 @@ import { formatPrice } from "@/utils/format"
 
 const InfoBill = ({ carts }) => {
     const location = useLocation()
-    const totalPrice = location.state.totalPrice
+    const totalPrice = location.state?.totalPrice
     // Voucher States & Handlers
     const [loading, setLoading] = useState(false)
     const [valueVoucher, setValueVoucher] = useState("")

@@ -35,7 +35,7 @@ const schema = yup.object({
 
 const InfoOrder = () => {
     const location = useLocation()
-    const totalPrice = location.state.totalPrice
+    const totalPrice = location.state?.totalPrice || 0
     const [selectedProvinces, setSelectedProvinces] = useState("")
     const [selectedDistrict, setSelectedDistrict] = useState("")
     const [districts, setDistricts] = useState([])
