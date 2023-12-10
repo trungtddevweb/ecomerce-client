@@ -1,19 +1,55 @@
 import Seo from "@/components/feature/Seo"
 import { Box, Button, Divider, Grid, Stack, Typography } from "@mui/material"
 import Image from "mui-image"
-import { useLoaderData } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 
 import cartBanner from "@/assets/images/cart.jpg"
+import cartEmpty from "@/assets/images/cartEmpty.png"
 import CartItem from "./CartItem"
 import { formatPrice } from "@/utils/format"
+import { pathRoutes } from "@/utils/const"
 
 const Cart = () => {
-    const carts = useLoaderData()
+    const carts = useSelector((state) => state.auth.carts)
+    const navigate = useNavigate()
     const cartLength = carts.length
-    const totalPrice = carts.reduce(
+    const totalPrice = carts?.reduce(
         (cart, currentValue) => cart + currentValue.sumPrice,
         0,
     )
+
+    const cartIsEmpty = (
+        <Grid container spacing={1} pt={8}>
+            <Grid
+                item
+                xs={7}
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <Typography variant="h5" mb={1}>
+                    Giỏ hàng của bạn đang trống
+                </Typography>
+                <Link to={`/${pathRoutes.collection}`}>
+                    <Typography
+                        variant="palette.primary.main"
+                        fontStyle="italic"
+                        fontWeight={600}
+                    >
+                        Mua gì đó ngay!
+                    </Typography>
+                </Link>
+            </Grid>
+            <Grid item xs={5}>
+                <img width={200} src={cartEmpty} alt="Cart Empty" />
+            </Grid>
+        </Grid>
+    )
+
     return (
         <>
             <Seo title={`Giỏ hàng (${cartLength})`} />
@@ -30,24 +66,27 @@ const Cart = () => {
                     <Typography variant="h5" fontWeight={600} color="primary">
                         Giỏ hàng của tôi
                     </Typography>
-                    <Typography
-                        color="GrayText"
-                        variant="body1"
-                        fontStyle="italic"
-                        py={1}
-                    >
-                        Bạn đang có{" "}
-                        <Typography component="strong" fontWeight={700}>
-                            {" "}
-                            {cartLength}
-                        </Typography>{" "}
-                        sản phẩm trong giỏ
-                    </Typography>
+                    {cartLength !== 0 && (
+                        <Typography
+                            color="GrayText"
+                            variant="body1"
+                            fontStyle="italic"
+                            py={1}
+                        >
+                            Bạn đang có{" "}
+                            <Typography component="strong" fontWeight={700}>
+                                {" "}
+                                {cartLength}
+                            </Typography>{" "}
+                            sản phẩm trong giỏ
+                        </Typography>
+                    )}
                     <Grid container spacing={4}>
                         <Grid item xs={8} mb={4}>
                             {carts.map((cart) => (
                                 <CartItem cart={cart} key={cart._id} />
                             ))}
+                            {cartLength === 0 && cartIsEmpty}
                         </Grid>
                         <Grid item xs={4}>
                             <Box
@@ -93,10 +132,30 @@ const Cart = () => {
                                         fullWidth
                                         color="inherit"
                                         variant="outlined"
+                                        onClick={() =>
+                                            navigate(
+                                                `/${pathRoutes.collection}`,
+                                            )
+                                        }
                                     >
                                         Tiếp tục mua hàng
                                     </Button>
-                                    <Button fullWidth variant="contained">
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        onClick={() =>
+                                            navigate(
+                                                `/${pathRoutes.checkOut}/${pathRoutes.infoOrder}`,
+                                                {
+                                                    state: {
+                                                        carts,
+                                                        totalPrice,
+                                                    },
+                                                },
+                                            )
+                                        }
+                                        disabled={cartLength === 0}
+                                    >
                                         Thanh toán
                                     </Button>
                                 </Stack>

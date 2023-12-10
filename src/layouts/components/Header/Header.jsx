@@ -29,7 +29,7 @@ import {
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import styled from "@emotion/styled"
-import { Link, redirect, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import HideOnScroll from "../HideOnScroll"
 import useStyles, {
     Search,
@@ -42,6 +42,7 @@ import useFetch from "@/hooks/useFetch"
 import { signOutAPI } from "@/api/main"
 import { logoutSuccess } from "@/redux/userSlice"
 import Backdrop from "@/components/common/Backdrop"
+import CustomDialog from "@/components/feature/CustomDialog"
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -98,6 +99,8 @@ export default function Header(props) {
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
+
     const open = Boolean(anchorEl)
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
     const classes = useStyles()
@@ -118,8 +121,9 @@ export default function Header(props) {
             setLoading(true)
             const res = await signOutAPI()
             if (res.status === 200) {
+                localStorage.removeItem("token")
                 dispatch(logoutSuccess())
-                redirect(pathRoutes.home)
+                navigate(pathRoutes.home)
             }
         } catch (error) {
             console.error("Error is : ---------->", error)
@@ -129,8 +133,20 @@ export default function Header(props) {
     }
 
     // Handlers
+    const handleCloseModal = () => {
+        setOpenModal(false)
+    }
+
+    const onConfirm = () => {
+        navigate(`/${pathRoutes.signIn}`)
+    }
+
     const handleNavigate = () => {
-        navigate(pathRoutes.signIn)
+        if (!isLoggedIn) {
+            return setOpenModal(true)
+        }
+
+        navigate(`/${pathRoutes.cart}`)
     }
 
     return (
@@ -192,9 +208,7 @@ export default function Header(props) {
                                     size="large"
                                     aria-label="show 17 new notifications"
                                     color="inherit"
-                                    onClick={() =>
-                                        navigate(`/${pathRoutes.cart}`)
-                                    }
+                                    onClick={handleNavigate}
                                 >
                                     <Badge
                                         badgeContent={
@@ -316,7 +330,9 @@ export default function Header(props) {
                                         <Button
                                             variant="contained"
                                             color="secondary"
-                                            onClick={handleNavigate}
+                                            onClick={() =>
+                                                navigate(pathRoutes.signIn)
+                                            }
                                         >
                                             Đăng nhập
                                         </Button>
@@ -343,6 +359,11 @@ export default function Header(props) {
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
+            <CustomDialog
+                open={openModal}
+                onClose={handleCloseModal}
+                onConfirm={onConfirm}
+            />
             <Backdrop open={loading} />
         </Box>
     )

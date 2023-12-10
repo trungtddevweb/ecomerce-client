@@ -1,20 +1,44 @@
 import PropTypes from "prop-types"
-import { formatPrice } from "@/utils/format"
-import { Delete } from "@mui/icons-material"
+import { Fragment } from "react"
 import { Divider, IconButton, Stack, Tooltip, Typography } from "@mui/material"
+import { Delete } from "@mui/icons-material"
+import { useDispatch } from "react-redux"
 import useFetch from "@/hooks/useFetch"
 
-const CartItem = ({ cart }) => {
-    const { data: product, loading } = useFetch(
-        `/products/find/${cart.productId}`,
-    )
+import { formatPrice } from "@/utils/format"
+import { removeProductFromCartAPI } from "@/api/main"
+import { showToast } from "@/redux/toastSlice"
+import { removeProductFromCart } from "@/redux/userSlice"
 
-    if (loading) return <div>Loading...</div>
+const CartItem = ({ cart }) => {
+    const dispatch = useDispatch()
+
+    const { data } = useFetch(`/products/find/${cart.productId}`)
+    const handleDelete = async () => {
+        try {
+            const response = await removeProductFromCartAPI({
+                itemId: cart._id,
+            })
+            if (response.status === 200) {
+                dispatch(removeProductFromCart(cart._id))
+            }
+        } catch (error) {
+            console.error(error)
+            dispatch(
+                showToast({
+                    type: "error",
+                    message: "Có lỗi xảy ra hãy thử lại",
+                }),
+            )
+        }
+    }
+
+    if (!data) return <div>Loading...</div>
 
     return (
         <>
-            {product && (
-                <>
+            {data && (
+                <Fragment>
                     <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -23,7 +47,8 @@ const CartItem = ({ cart }) => {
                         <Stack direction="row" spacing={2}>
                             <img
                                 className="w-[190px] h-[200px] object-cover"
-                                src={product.productImages[0] || ""}
+                                src={data.productImages?.[0] || " "}
+                                alt={data.name}
                             />
                             <Stack spacing={0.5}>
                                 <Typography
@@ -31,14 +56,14 @@ const CartItem = ({ cart }) => {
                                     color="primary"
                                     width="95%"
                                 >
-                                    {product.name}
+                                    {data && data.name}
                                 </Typography>
                                 <Stack direction="row" spacing={1}>
                                     <Typography variant="body1">
                                         Giá:
                                     </Typography>
                                     <Typography color="error">
-                                        {formatPrice(product.price)}đ
+                                        {formatPrice(data.price)}đ
                                     </Typography>
                                 </Stack>
                                 <Stack direction="row" spacing={1}>
@@ -72,13 +97,14 @@ const CartItem = ({ cart }) => {
                                     height: "max-content",
                                     flexDirection: "flex-end",
                                 }}
+                                onClick={handleDelete}
                             >
                                 <Delete />
                             </IconButton>
                         </Tooltip>
                     </Stack>
                     <Divider variant="fullWidth" />
-                </>
+                </Fragment>
             )}
         </>
     )

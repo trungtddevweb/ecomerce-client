@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 import {
     Button,
     Dialog,
@@ -6,13 +6,13 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-} from '@mui/material'
+} from "@mui/material"
 
 const CustomDialog = ({
     open,
     onClose,
-    title = 'Thông báo',
-    message = 'Bạn cần đăng nhập để thực hiện chức năng này!',
+    title = "Thông báo",
+    message = "Bạn cần đăng nhập để thực hiện chức năng này!",
     onConfirm,
 }) => {
     return (
@@ -22,7 +22,7 @@ const CustomDialog = ({
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title"> {title}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     {message}

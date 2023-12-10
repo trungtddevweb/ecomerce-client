@@ -4,7 +4,7 @@ import AuthLayout from "@/layouts/AuthLayout"
 import MainLayout from "@/layouts/MainLayout"
 import NoHeaderLayout from "@/layouts/NoHeaderLayout"
 import ProtectedLayout from "@/layouts/ProtectedLayout"
-import OTPLayout from "@/layouts/OTPLayout"
+import EmptyLayout from "@/layouts/EmptyLayout"
 
 import {
     Error,
@@ -17,11 +17,15 @@ import {
     Dashboard,
     OverView,
     Cart,
-    getCartLoader,
     VerifyEmailOTP,
     VerifyPassOTP,
     Forgot,
     ChangePass,
+    CheckOut,
+    InfoOrder,
+    PaymentMethods,
+    getLocationLoader,
+    OrderSuccess,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -38,6 +42,10 @@ const router = createBrowserRouter([
                 path: pathRoutes.productDetail,
                 element: <ProductDetail />,
                 loader: getDetailProductLoader,
+            },
+            {
+                path: pathRoutes.collection,
+                element: <div>all product</div>,
             },
         ],
     },
@@ -56,7 +64,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        element: <OTPLayout />,
+        element: <EmptyLayout />,
         children: [
             {
                 path: pathRoutes.verifyEmailOTP,
@@ -74,15 +82,35 @@ const router = createBrowserRouter([
                 path: pathRoutes.changePass,
                 element: <ChangePass />,
             },
+            {
+                path: pathRoutes.orderSuccess,
+                element: <OrderSuccess />,
+            },
+            {
+                path: pathRoutes.checkOut,
+                element: <CheckOut />,
+                children: [
+                    {
+                        index: true,
+                        path: pathRoutes.infoOrder,
+                        element: <InfoOrder />,
+                        loader: getLocationLoader,
+                    },
+                    {
+                        path: pathRoutes.paymentMethods,
+                        element: <PaymentMethods />,
+                    },
+                ],
+            },
         ],
     },
     {
         element: <ProtectedLayout />,
+        errorElement: <Error />,
         children: [
             {
                 path: pathRoutes.cart,
                 element: <Cart />,
-                loader: getCartLoader,
             },
         ],
     },

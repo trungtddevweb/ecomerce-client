@@ -29,6 +29,7 @@ import TypeErrorMsg from "@/components/common/TypeErrorMsg"
 import { ErrorMessage } from "@hookform/error-message"
 import { signInAPI, signInWithGoogleAPI } from "@/api/main"
 import Seo from "@/components/feature/Seo"
+import { pathRoutes } from "@/utils/const"
 
 const SignIn = () => {
     const dispatch = useDispatch()
@@ -70,7 +71,7 @@ const SignIn = () => {
             setLoading(true)
             const response = await signInAPI(data)
             dispatch(loginSuccess(response))
-            navigate(-1)
+            navigate(`/${pathRoutes.home}`)
         } catch (error) {
             setError(error.response?.data.message)
         } finally {
@@ -85,7 +86,7 @@ const SignIn = () => {
                 credentialResponse.credential,
             )
             dispatch(loginSuccess(decode))
-            navigate(-1)
+            navigate(`/${pathRoutes.home}`)
         } catch (error) {
             console.error(error)
             setError(error.response?.data.message)
@@ -220,7 +221,7 @@ const SignIn = () => {
                                                 label="Ghi nhớ đăng nhập"
                                             />
                                         </FormGroup>
-                                        <Link to="/forgot">
+                                        <Link to={`/${pathRoutes.forgot}`}>
                                             <Typography
                                                 variant="subtitle2"
                                                 color="primary"
