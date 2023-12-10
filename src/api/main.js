@@ -80,6 +80,10 @@ export const getCartAPI = async () => {
     return response.data.carts
 }
 
+export const clearCartAPI = async () => {
+    return await mainAPI.patch("/user/clear-cart")
+}
+
 // Comment
 export const createCommentAPI = async (data) => {
     const res = await mainAPI.post("/comment/", data)
@@ -97,6 +101,11 @@ export const getDistrictsAPI = async (code) => {
 
 // Order
 export const createOrderAPI = async (payload) => {
-    const response = await mainAPI.post("/order", payload)
+    const response = await mainAPI.post("/order/", payload)
     return response.data
+}
+
+// Voucher
+export const getAVoucherAPI = async (voucherCode) => {
+    return await mainAPI.post("/voucher/find", voucherCode)
 }

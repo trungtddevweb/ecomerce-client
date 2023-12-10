@@ -1,25 +1,56 @@
 import PropTypes from "prop-types"
 import { useState } from "react"
-import { Box, Divider, TextField, Stack, Typography } from "@mui/material"
-import ListProduct from "./ListProduct"
+import {
+    Box,
+    Divider,
+    TextField,
+    Stack,
+    Typography,
+    Button,
+} from "@mui/material"
 import { useLocation } from "react-router-dom"
-
 import LoadingButton from "@mui/lab/LoadingButton"
+import { useDispatch } from "react-redux"
 
+import ListProduct from "./ListProduct"
 import TypeErrorMsg from "@/components/common/TypeErrorMsg"
 import { formatPrice } from "@/utils/format"
+import { usingVoucher } from "@/redux/userSlice"
+import { getAVoucherAPI } from "@/api/main"
 
 const InfoBill = ({ carts }) => {
     const location = useLocation()
     const totalPrice = location.state?.totalPrice
+    const dispatch = useDispatch()
     // Voucher States & Handlers
     const [loading, setLoading] = useState(false)
     const [valueVoucher, setValueVoucher] = useState("")
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState(false)
+    const [tempCount, setTempCount] = useState(totalPrice || 0)
+    const [discount, setDiscount] = useState(0)
+
     const handleGetVoucher = async (event) => {
         event.preventDefault()
         setLoading(true)
+        try {
+            const res = await getAVoucherAPI({ voucherCode: valueVoucher })
+            if (res.status === 200) {
+                setSuccess(true)
+                dispatch(usingVoucher(res.data.voucherCode))
+                setDiscount(res.data.discount)
+                setTempCount(tempCount - Number(res.data.discount))
+            }
+        } catch (error) {
+            setError(error.response.data.message)
+        } finally {
+            setLoading(false)
+        }
     }
-    const [tempCount, setTempCount] = useState(totalPrice || 0)
+
+    const handleCancel = () => {
+        dispatch(usingVoucher(""))
+    }
 
     return (
         <Box pr={32}>
@@ -45,19 +76,32 @@ const InfoBill = ({ carts }) => {
                                 setValueVoucher(event.target.value)
                             }
                         />
-                        <LoadingButton
-                            loading={loading}
-                            type="submit"
-                            sx={{ flex: 1 }}
-                            color="primary"
-                            variant="contained"
-                            disabled={!valueVoucher}
-                        >
-                            Sử dụng
-                        </LoadingButton>
+                        {success ? (
+                            <Button sx={{ flex: 1 }} onClick={handleCancel}>
+                                Hủy bỏ
+                            </Button>
+                        ) : (
+                            <LoadingButton
+                                loading={loading}
+                                type="submit"
+                                sx={{ flex: 1 }}
+                                color="primary"
+                                variant="contained"
+                                disabled={!valueVoucher}
+                            >
+                                Sử dụng
+                            </LoadingButton>
+                        )}
                     </Box>
                 </form>
-                <TypeErrorMsg color="green" message="Success" />
+                {error ? (
+                    <TypeErrorMsg color="error" message={error} />
+                ) : success ? (
+                    <TypeErrorMsg
+                        color="success"
+                        message={`Áp dụng mã thành công - ${discount}₫`}
+                    />
+                ) : null}
             </Box>
             <Divider />
             <Box p={2} display="flex" gap={2} flexDirection="column">

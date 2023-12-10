@@ -5,6 +5,7 @@ const initialState = {
     user: {},
     carts: [],
     order: {},
+    voucher: "",
 }
 
 export const userSlice = createSlice({
@@ -47,6 +48,9 @@ export const userSlice = createSlice({
         clearCart: (state) => {
             state.carts = []
         },
+        usingVoucher: (state, action) => {
+            state.voucher = action.payload
+        },
     },
 })
 
@@ -56,6 +60,7 @@ export const {
     addProductToCart,
     removeProductFromCart,
     clearCart,
+    usingVoucher,
 } = userSlice.actions
 
 export default userSlice.reducer

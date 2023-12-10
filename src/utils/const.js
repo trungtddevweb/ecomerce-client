@@ -19,6 +19,7 @@ export const InfoOrder = lazy(() => import("@/pages/CheckOut/InfoOrder"))
 export const PaymentMethods = lazy(() =>
     import("@/pages/CheckOut/PaymentMethods"),
 )
+export const OrderSuccess = lazy(() => import("@/pages/CheckOut/OrderSuccess"))
 
 export const VerifyEmailOTP = lazy(() => import("@/pages/VerifyEmailOTP"))
 export const VerifyPassOTP = lazy(() => import("@/pages/VerifyPassOTP"))
@@ -49,6 +50,7 @@ export const pathRoutes = {
     forgot: "forgot-password",
     changePass: "change-password",
     collection: "collection/all",
+    orderSuccess: "order-success/:orderCode",
 }
 
 // Loaders

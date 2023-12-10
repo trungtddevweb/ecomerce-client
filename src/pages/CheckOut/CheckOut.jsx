@@ -16,7 +16,6 @@ const CheckOut = () => {
     useLayoutEffect(() => {
         if (!isAuthenticated()) return navigate(`${pathRoutes.home}`)
     }, [navigate])
-
     // Handlers
     const handleNavigate = (path) => {
         navigate(path)

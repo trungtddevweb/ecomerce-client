@@ -25,6 +25,7 @@ import {
     InfoOrder,
     PaymentMethods,
     getLocationLoader,
+    OrderSuccess,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.changePass,
                 element: <ChangePass />,
+            },
+            {
+                path: pathRoutes.orderSuccess,
+                element: <OrderSuccess />,
             },
             {
                 path: pathRoutes.checkOut,

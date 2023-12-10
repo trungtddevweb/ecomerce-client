@@ -10,35 +10,48 @@ import {
     Checkbox,
     IconButton,
     Collapse,
-    Button,
 } from "@mui/material"
+import { LoadingButton } from "@mui/lab"
 import { CreditCard, LocalShipping } from "@mui/icons-material"
 import { useLocation, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 
 import useStyles from "@/assets/styles"
-import { createOrderAPI } from "@/api/main"
+import { clearCartAPI, createOrderAPI } from "@/api/main"
+import { clearCart } from "@/redux/userSlice"
+import { pathRoutes } from "@/utils/const"
 
 const PaymentMethods = () => {
     const classes = useStyles()
     const [paymentMethod, setPaymentMethod] = useState("cash")
+    const voucher = useSelector((state) => state.auth.voucher)
+    const carts = useSelector((state) => state.auth.carts)
     const [loading, setLoading] = useState(false)
+
+    const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
     // Handlers
     const handleChange = (event, value) => {
         setPaymentMethod(value)
     }
+
     const orderValue = {
-        ...location.state,
+        ...location.state.payload,
+        voucher,
+        products: carts,
         paymentMethod,
     }
-    console.log(orderValue)
 
     const handleCreateOrder = async () => {
         setLoading(true)
         try {
-            const response = await createOrderAPI("payload")
-            console.log(response)
+            const response = await createOrderAPI(orderValue)
+            if (response.success) {
+                dispatch(clearCart())
+                clearCartAPI()
+                navigate(`/order-success/${response.orderCode}`)
+            }
         } catch (error) {
             console.error(error)
         } finally {
@@ -115,13 +128,14 @@ const PaymentMethods = () => {
                     </Box>
                 </Collapse>
             </List>
-            <Button
+            <LoadingButton
                 variant="contained"
                 color="primary"
+                loading={loading}
                 onClick={handleCreateOrder}
             >
                 Hòan tất đơn hàng
-            </Button>
+            </LoadingButton>
         </Box>
     )
 }
