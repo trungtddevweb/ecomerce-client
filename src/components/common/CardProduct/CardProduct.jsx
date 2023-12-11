@@ -6,12 +6,21 @@ import {
     CardContent,
     Typography,
     Stack,
+    Rating,
 } from "@mui/material"
 import { Link } from "react-router-dom"
 import useStyles from "@/assets/styles"
+import { formatPrice } from "@/utils/format"
 
 const CardProduct = ({ product }) => {
-    const { price, sold, name, _id } = product
+    const { price, sold, name, _id, rating } = product
+
+    const totalRatingValue = rating.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.ratingValue,
+        0,
+    )
+    const averageRating = Number(totalRatingValue / rating.length)
+
     const classes = useStyles()
 
     return (
@@ -26,11 +35,26 @@ const CardProduct = ({ product }) => {
                         <Typography className={classes.limitTitle} gutterBottom>
                             {name}
                         </Typography>
+                        <Stack
+                            direction="row"
+                            spacing={0.5}
+                            alignItems="center"
+                        >
+                            <Rating
+                                size="small"
+                                value={averageRating}
+                                readOnly
+                            />
+                            <Typography variant="caption">
+                                ({rating.length})
+                            </Typography>
+                        </Stack>
+
                         <Stack direction="row" justifyContent="space-between">
                             <Typography color="error">
-                                {price.toLocaleString("vi-VN")}đ
+                                {formatPrice(price)}đ
                             </Typography>
-                            <Typography>Đã bán: {sold}</Typography>
+                            <Typography>Đã bán {sold}</Typography>
                         </Stack>
                     </CardContent>
                 </CardActionArea>

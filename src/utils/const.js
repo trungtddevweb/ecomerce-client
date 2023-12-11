@@ -12,6 +12,7 @@ export const SignUp = lazy(() => import("@/pages/SignUp"))
 export const ProductDetail = lazy(() => import("@/pages/ProductDetail"))
 export const Dashboard = lazy(() => import("@/pages/Dashboard"))
 export const Cart = lazy(() => import("@/pages/Cart"))
+export const Collection = lazy(() => import("@/pages/Collection"))
 
 // Check Out
 export const CheckOut = lazy(() => import("@/pages/CheckOut"))
@@ -27,6 +28,15 @@ export const Forgot = lazy(() => import("@/pages/Forgot"))
 export const ChangePass = lazy(() => import("@/pages/ChangePass"))
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
+
+// User
+export const UserAccount = lazy(() => import("@/pages/UserAccount"))
+export const AccountSetting = lazy(() =>
+    import("@/pages/UserAccount/AccountSetting"),
+)
+export const AccountOrder = lazy(() =>
+    import("@/pages/UserAccount/AccountOrder"),
+)
 
 // Paths
 export const pathRoutes = {
@@ -51,7 +61,44 @@ export const pathRoutes = {
     changePass: "change-password",
     collection: "collection/all",
     orderSuccess: "order-success/:orderCode",
+    userAccount: "user",
+    accountSetting: "?tab=setting",
+    accountOrder: "?tab=setting",
 }
+
+export const listOptionsFilter = [
+    {
+        value: "ao",
+        label: "Áo",
+    },
+    {
+        value: "quan",
+        label: "Quần",
+    },
+    {
+        value: "vay",
+        label: "Váy",
+    },
+    {
+        value: "dam",
+        label: "Đầm",
+    },
+]
+
+export const listPriceFilter = [
+    {
+        value: 100000,
+        label: "Nhỏ hơn 100.000đ",
+    },
+    {
+        value: 200000,
+        label: "200000 - 500.000đ",
+    },
+    {
+        value: 500000,
+        label: "Lớn hơn 500.000đ",
+    },
+]
 
 // Loaders
 export const getDetailProductLoader = async ({ params }) => {
