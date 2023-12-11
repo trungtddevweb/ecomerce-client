@@ -41,25 +41,6 @@ const ProductDettail = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [hoveredImage, setHoveredImage] = useState(null)
     const [open, setOpen] = useState(false)
-    // const [infoProduct, setInfoProduct] = useState({
-    //     color: "",
-    //     size: "",
-    //     quantity: 1,
-    // })
-
-    // // Handlers
-    // const handleChangeValue = (event, name) => {
-    //     const { value } = event.target
-    //     setInfoProduct((prev) => ({ ...prev, [name]: value }))
-    // }
-
-    // const handleChangeQuantity = (type) => {
-    //     setInfoProduct((prev) => ({
-    //         ...prev,
-    //         quantity:
-    //             type === "increase" ? prev.quantity + 1 : prev.quantity - 1,
-    //     }))
-    // }
 
     const initialInfoProduct = {
         color: searchParams.get("color") || "",
@@ -141,7 +122,8 @@ const ProductDettail = () => {
                 }
                 const response = await addProductToCartAPI(payload)
                 if (response.status === 200) {
-                    navigate(`${pathRoutes.cart}`)
+                    dispatch(addProductToCart(response.data))
+                    navigate(`/${pathRoutes.cart}`)
                 }
             } catch (error) {
                 dispatch(

@@ -99,9 +99,9 @@ const SignIn = () => {
         <Fragment>
             <Seo
                 title="Đăng nhập "
-                description="Coffee Store buy everything you want"
+                description="May Store buy everything you want"
                 type="webapp"
-                name="Coffee Store"
+                name="May Store"
             />
             <Box className="h-screen flex items-center justify-center sm:px-2">
                 <Paper

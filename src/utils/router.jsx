@@ -26,6 +26,8 @@ import {
     PaymentMethods,
     getLocationLoader,
     OrderSuccess,
+    Collection,
+    UserAccount,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
             },
             {
                 path: pathRoutes.collection,
-                element: <div>all product</div>,
+                element: <Collection />,
             },
         ],
     },
@@ -111,6 +113,10 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.cart,
                 element: <Cart />,
+            },
+            {
+                path: pathRoutes.userAccount,
+                element: <UserAccount />,
             },
         ],
     },

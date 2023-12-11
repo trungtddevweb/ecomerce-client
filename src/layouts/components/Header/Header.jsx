@@ -302,12 +302,18 @@ export default function Header(props) {
                                                     vertical: "bottom",
                                                 }}
                                             >
-                                                <MenuItem onClick={handleClose}>
-                                                    <ListItemIcon>
-                                                        <Person2 fontSize="small" />
-                                                    </ListItemIcon>
-                                                    Thông tin
-                                                </MenuItem>
+                                                <Link
+                                                    to={`/${pathRoutes.userAccount}/${pathRoutes.accountSetting}`}
+                                                >
+                                                    <MenuItem
+                                                        onClick={handleClose}
+                                                    >
+                                                        <ListItemIcon>
+                                                            <Person2 fontSize="small" />
+                                                        </ListItemIcon>
+                                                        Thông tin
+                                                    </MenuItem>
+                                                </Link>
                                                 <MenuItem onClick={handleClose}>
                                                     <ListItemIcon>
                                                         <Settings fontSize="small" />

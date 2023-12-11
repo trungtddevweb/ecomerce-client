@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux"
 import useStyles from "@/assets/styles"
 import { clearCartAPI, createOrderAPI } from "@/api/main"
 import { clearCart } from "@/redux/userSlice"
-import { pathRoutes } from "@/utils/const"
 
 const PaymentMethods = () => {
     const classes = useStyles()

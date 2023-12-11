@@ -1,12 +1,14 @@
 import { Box, Stack, Typography, Button } from "@mui/material"
 import shippingImage from "@/assets/images/shipping.png"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import useStyles from "@/assets/styles"
 import { pathRoutes } from "@/utils/const"
 
 const OrderSuccess = () => {
     const { orderCode } = useParams()
     const classes = useStyles()
+    const navigate = useNavigate()
+
     return (
         <Box className={classes.flexBox} height="100vh">
             <Stack spacing={2} className={classes.flexBox}>
@@ -29,7 +31,11 @@ const OrderSuccess = () => {
                     >
                         Quay lại trang chủ
                     </Typography>
-                    <Button>Tiếp tục mua hàng</Button>
+                    <Button
+                        onClick={() => navigate(`/${pathRoutes.collection}`)}
+                    >
+                        Tiếp tục mua hàng
+                    </Button>
                 </Stack>
             </Stack>
         </Box>
