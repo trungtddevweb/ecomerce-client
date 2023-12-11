@@ -86,8 +86,7 @@ export const clearCartAPI = async () => {
 
 // Comment
 export const createCommentAPI = async (data) => {
-    const res = await mainAPI.post("/comment/", data)
-    return res.data
+    return await mainAPI.post("/comment", data)
 }
 
 // Location
