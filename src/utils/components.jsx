@@ -18,11 +18,13 @@ export const listTabsAccountSetting = [
         icon: <Person2 />,
         label: "Thông tin cá nhân",
         slug: "?tab=setting",
+        value: "setting",
     },
     {
         icon: <LocalShipping />,
         label: "Đơn hàng của tôi",
         slug: "?tab=order",
+        value: "order",
     },
 ]
 

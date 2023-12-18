@@ -7,25 +7,6 @@ export function formatDate(dateString) {
     return `${day}/${month}/${year}`
 }
 
-export function formatTagNames(tagName) {
-    switch (tagName.toLowerCase()) {
-        case "music":
-            return "Âm nhạc"
-        case "technology":
-            return "Công nghệ"
-        case "cuisine":
-            return "Ẩm thực"
-        case "sharing":
-            return "Tâm sự"
-        case "traveling":
-            return "Du lịch"
-        case "youth":
-            return "Thanh xuân"
-        default:
-            return "Chia sẻ"
-    }
-}
-
 export function formatNumber(input) {
     // Lấy giá trị số nhập vào
     const value = input.valueAsNumber
@@ -48,4 +29,10 @@ export const formatPrice = (value) => {
         return value.toLocaleString("vi-VN")
     }
     return
+}
+
+export const formatCellValue = (value, rowData) => {
+    if (value === "createdAt") return formatDate(rowData[value])
+    if (typeof rowData[value] === "number") return formatPrice(rowData[value])
+    return rowData[value]
 }

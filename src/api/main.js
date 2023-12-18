@@ -84,6 +84,10 @@ export const clearCartAPI = async () => {
     return await mainAPI.patch("/user/clear-cart")
 }
 
+export const updatedUserAPI = async (fieldUpdate) => {
+    const response = await mainAPI.post("/user/update", fieldUpdate)
+    return response.data
+}
 // Comment
 export const createCommentAPI = async (data) => {
     return await mainAPI.post("/comment", data)

@@ -100,6 +100,31 @@ export const listPriceFilter = [
     },
 ]
 
+export const optionSelectPageValues = [5, 10, 15]
+
+export const listValueOfOrderToGet = [
+    {
+        value: "orderCode",
+        label: "Mã đơn hàng",
+    },
+    {
+        value: "totalPrice",
+        label: "Giá trị đơn hàng",
+    },
+    {
+        value: "paymentMethod",
+        label: "Phương thức thanh toán",
+    },
+    {
+        value: "createdAt",
+        label: "Ngày đặt hàng",
+    },
+    {
+        value: "status",
+        label: "Trạng thái",
+    },
+]
+
 // Loaders
 export const getDetailProductLoader = async ({ params }) => {
     return await getProductDetailAPI(params.productId)
