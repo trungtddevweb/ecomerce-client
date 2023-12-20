@@ -28,6 +28,21 @@ export const Forgot = lazy(() => import("@/pages/Forgot"))
 export const ChangePass = lazy(() => import("@/pages/ChangePass"))
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
+export const OrderController = lazy(() =>
+    import("@/pages/Dashboard/OrderController"),
+)
+export const ProductController = lazy(() =>
+    import("@/pages/Dashboard/ProductController"),
+)
+export const UserController = lazy(() =>
+    import("@/pages/Dashboard/UserController"),
+)
+export const VoucherController = lazy(() =>
+    import("@/pages/Dashboard/VoucherController"),
+)
+export const StoreController = lazy(() =>
+    import("@/pages/Dashboard/StoreController"),
+)
 
 // User
 export const UserAccount = lazy(() => import("@/pages/UserAccount"))
@@ -98,6 +113,138 @@ export const listPriceFilter = [
         value: 500000,
         label: "Lớn hơn 500.000đ",
     },
+]
+
+export const optionSelectPageValues = [5, 10, 15]
+
+export const listValueOfOrderToGet = [
+    {
+        value: "orderCode",
+        label: "Mã đơn hàng",
+    },
+    {
+        value: "totalPrice",
+        label: "Giá trị đơn hàng",
+    },
+    {
+        value: "paymentMethod",
+        label: "Phương thức thanh toán",
+    },
+    {
+        value: "createdAt",
+        label: "Ngày đặt hàng",
+    },
+    {
+        value: "status",
+        label: "Trạng thái",
+    },
+]
+
+export const listFieldOrderController = [
+    {
+        value: "orderCode",
+        label: "Mã đơn hàng",
+    },
+    {
+        value: "userId",
+        label: "ID người dùng",
+    },
+    {
+        value: "totalPrice",
+        label: "Giá trị đơn hàng",
+    },
+    {
+        value: "paymentMethod",
+        label: "Phương thức thanh toán",
+    },
+    {
+        value: "createdAt",
+        label: "Ngày đặt hàng",
+    },
+    {
+        value: "status",
+        label: "Trạng thái",
+    },
+]
+
+export const listFieldUserController = [
+    {
+        value: "_id",
+        label: "User ID",
+    },
+    {
+        value: "name",
+        label: "Tên người dùng",
+    },
+    {
+        value: "role",
+        label: "Phân quyền",
+    },
+    {
+        value: "isActive",
+        label: "Trạng thái",
+    },
+    {
+        value: "orders",
+        label: "Số đơn đã đặt",
+    },
+    {
+        value: "cancelOrders",
+        label: "Số đơn hủy",
+    },
+
+    {
+        value: "createdAt",
+        label: "Ngày tham gia",
+    },
+]
+
+export const listFieldProductController = [
+    {
+        value: "_id",
+        label: "Product ID",
+    },
+    {
+        value: "name",
+        label: "Tên sản phẩm",
+    },
+    {
+        value: "tag",
+        label: "#Tag",
+    },
+    {
+        value: "brand",
+        label: "Thương hiệu",
+    },
+    {
+        value: "quantity",
+        label: "Số lượng tồn",
+    },
+    {
+        value: "price",
+        label: "Giá niêm Yết",
+    },
+    {
+        value: "sold",
+        label: "Đã bán",
+    },
+]
+
+export const sizeLists = [
+    { label: "S", value: "s" },
+    { label: "M", value: "m" },
+    { label: "L", value: "l" },
+    { label: "XL", value: "xl" },
+    { label: "XXL", value: "xxl" },
+    { label: "3XL", value: "3xl" },
+    { label: "4XL", value: "4xl" },
+    { label: "36", value: "36" },
+    { label: "37", value: "37" },
+    { label: "38", value: "38" },
+    { label: "39", value: "39" },
+    { label: "40", value: "40" },
+    { label: "41", value: "41" },
+    { label: "42", value: "43" },
 ]
 
 // Loaders

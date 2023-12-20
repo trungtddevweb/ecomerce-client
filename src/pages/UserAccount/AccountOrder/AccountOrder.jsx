@@ -1,9 +1,13 @@
-import PropTypes from "prop-types"
+import PaginationCustom from "@/components/common/Pagination"
+import { listValueOfOrderToGet } from "@/utils/const"
 
-const AccountOrder = (props) => {
-    return <div>AccountOrder</div>
+const AccountOrder = () => {
+    return (
+        <PaginationCustom
+            urlFetch="/order"
+            valueToFetch={listValueOfOrderToGet}
+        />
+    )
 }
-
-AccountOrder.propTypes = {}
 
 export default AccountOrder

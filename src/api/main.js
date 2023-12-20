@@ -51,6 +51,9 @@ export const changePassAPI = async (data) => {
 }
 
 // PRODUCT API
+export const createProductAPI = async (data) => {
+    return await mainAPI.post("/products", data)
+}
 
 export const getProductDetailAPI = async (productId) => {
     const res = await mainAPI.get(`/products/find/${productId}`)
@@ -60,6 +63,20 @@ export const getProductDetailAPI = async (productId) => {
 export const getAllProductsAPI = async () => {
     const res = await mainAPI.get("/products")
     return res.data
+}
+
+export const getAllProductsInFlashSaleAPI = async () => {
+    const response = await mainAPI.get(`/products/flash-sale/products`)
+    return response.data
+}
+
+export const createFlashSaleAPI = async (data) => {
+    return await mainAPI.post("/dashboard/flash-sale/create", data)
+}
+
+export const createVoucherAPI = async (data) => {
+    const response = await mainAPI.post("/vouchers", data)
+    return response.data
 }
 
 // User
@@ -84,6 +101,10 @@ export const clearCartAPI = async () => {
     return await mainAPI.patch("/user/clear-cart")
 }
 
+export const updatedUserAPI = async (fieldUpdate) => {
+    const response = await mainAPI.patch("/user/update-user", fieldUpdate)
+    return response.data
+}
 // Comment
 export const createCommentAPI = async (data) => {
     return await mainAPI.post("/comment", data)
@@ -108,3 +129,5 @@ export const createOrderAPI = async (payload) => {
 export const getAVoucherAPI = async (voucherCode) => {
     return await mainAPI.post("/voucher/find", voucherCode)
 }
+
+// Dashboard

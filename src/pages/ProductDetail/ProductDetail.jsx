@@ -33,7 +33,6 @@ import { addProductToCart } from "@/redux/userSlice"
 
 const ProductDettail = () => {
     const product = useLoaderData()
-    console.log(product.comments)
     const classes = useStyles()
     const dispatch = useDispatch()
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)

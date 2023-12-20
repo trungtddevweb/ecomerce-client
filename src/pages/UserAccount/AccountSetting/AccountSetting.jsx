@@ -1,9 +1,331 @@
-import PropTypes from "prop-types"
+import {
+    Box,
+    Typography,
+    Grid,
+    Avatar,
+    Divider,
+    TextField,
+    Button,
+    Stack,
+    IconButton,
+    Tooltip,
+} from "@mui/material"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { updatedUserAPI } from "@/api/main"
+import { useForm, Controller } from "react-hook-form"
+import { Edit } from "@mui/icons-material"
+import { showToast } from "@/redux/toastSlice"
+import useStyles from "@/assets/styles"
 
-const AccountSetting = (props) => {
-    return <div>AccountSetting</div>
+const AccountSetting = () => {
+    const token = useSelector((state) => state.auth.user?.token)
+    const [isEdit, setIsEdit] = useState(false)
+    const classes = useStyles()
+    const dispatch = useDispatch()
+    const user = useSelector((state) => state.auth.user)
+    const { name, email, phone } = user
+    const { address } = user.info
+    const defaultValues = {
+        name,
+        email,
+        phone,
+        address,
+    }
+
+    const {
+        reset,
+        control,
+        formState: { isDirty, isValid },
+        handleSubmit,
+    } = useForm({
+        defaultValues,
+    })
+
+    const handleEdit = () => {
+        setIsEdit(true)
+    }
+
+    const cancelEdit = () => {
+        setIsEdit(false)
+        reset()
+    }
+
+    const onSubmitEdit = async (data) => {
+        try {
+            const res = await updatedUserAPI(data, token)
+            if (res.status === 200) {
+                dispatch(
+                    showToast({
+                        type: "success",
+                        message: "Cập nhập thành công!",
+                    }),
+                )
+                setIsEdit(false)
+            }
+        } catch (err) {
+            console.error(err)
+            dispatch(
+                showToast({ type: "error", message: err.response.data.error }),
+            )
+            // setIsEdit(false)
+        }
+    }
+
+    return (
+        <Box component="form" onSubmit={handleSubmit(onSubmitEdit)}>
+            <Stack
+                height={72}
+                padding={2}
+                direction="row"
+                justifyContent="space-between"
+            >
+                <Typography variant="h5" color="primary">
+                    Hồ sơ của tôi
+                </Typography>
+                {!isEdit && (
+                    <IconButton onClick={handleEdit}>
+                        <Tooltip title="Chỉnh sửa">
+                            <Edit />
+                        </Tooltip>
+                    </IconButton>
+                )}
+            </Stack>
+            <Divider variant="fullWidth" component="div" />
+            <Grid p={2} container spacing={2}>
+                {isEdit ? (
+                    <Grid
+                        xs={12}
+                        sm={6}
+                        item
+                        md={6}
+                        display="flex"
+                        gap={2}
+                        flexDirection="column"
+                    >
+                        <Stack direction="row" alignItems="center">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Tên đăng nhập:
+                            </Typography>
+                            <Controller
+                                control={control}
+                                name="name"
+                                render={({
+                                    field: {
+                                        onChange,
+                                        onBlur,
+                                        value,
+                                        name,
+                                        ref,
+                                    },
+                                    fieldState: {
+                                        invalid,
+                                        isTouched,
+                                        isDirty,
+                                        error,
+                                    },
+                                    formState,
+                                }) => (
+                                    <TextField
+                                        defaultValue={defaultValues.name}
+                                        size="small"
+                                        onBlur={onBlur} // notify when input is touched
+                                        onChange={onChange} // send value to hook form
+                                        checked={value}
+                                        inputRef={ref}
+                                    />
+                                )}
+                            />
+                        </Stack>
+                        <Stack direction="row" alignItems="center">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Email:
+                            </Typography>
+                            <Controller
+                                control={control}
+                                name="email"
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        type="email"
+                                        size="small"
+                                    />
+                                )}
+                            />
+                        </Stack>
+                        <Stack direction="row" alignItems="center">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Số điện thoại:
+                            </Typography>
+                            <Controller
+                                control={control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        type="number"
+                                        size="small"
+                                    />
+                                )}
+                            />
+                        </Stack>
+                        <Stack direction="row" alignItems="center">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Địa chỉ:
+                            </Typography>
+                            <Controller
+                                control={control}
+                                name="address"
+                                render={({ field }) => (
+                                    <TextField {...field} size="small" />
+                                )}
+                            />
+                        </Stack>
+
+                        {isEdit && (
+                            <Stack
+                                direction="row"
+                                spacing={1}
+                                justifyContent="flex-end"
+                            >
+                                <Button
+                                    onClick={cancelEdit}
+                                    color="error"
+                                    variant="contained"
+                                >
+                                    Hủy bỏ
+                                </Button>
+                                <Button
+                                    disabled={!isDirty && isValid}
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Cập nhập
+                                </Button>
+                            </Stack>
+                        )}
+                    </Grid>
+                ) : (
+                    <Grid
+                        xs={12}
+                        sm={6}
+                        item
+                        md={6}
+                        display="flex"
+                        gap={2}
+                        flexDirection="column"
+                    >
+                        <Stack direction="row">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Tên đăng nhập:
+                            </Typography>
+                            <Typography>{user.name}</Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Email:
+                            </Typography>
+                            <Typography>{user.email}</Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Số điện thoại:
+                            </Typography>
+                            <Typography>
+                                {user.phone || "Chưa cập nhập SĐT"}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row" alignItems="center">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Địa chỉ:
+                            </Typography>
+                            <Typography>
+                                {user?.address || "Chưa cập nhập"}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Hạng hội viên:
+                            </Typography>
+                            <Typography>
+                                {user?.ranking || "Chưa cập nhập"}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Typography
+                                variant="body1"
+                                fontWeight={600}
+                                minWidth={150}
+                            >
+                                Vai trò
+                            </Typography>
+                            <Typography>
+                                {user.isAdmin ? "Quản lý" : "Khách hàng"}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Stack direction="row">
+                                <Typography
+                                    variant="body1"
+                                    fontWeight={600}
+                                    minWidth={150}
+                                >
+                                    Số đơn hàng
+                                </Typography>
+                                <Typography>
+                                    {user.ordersCount?.length}
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                    </Grid>
+                )}
+                <Grid item xs={12} sm={6} md={6} className={classes.flexBox}>
+                    <Avatar
+                        src={user?.avtUrl}
+                        alt="Avatar"
+                        sx={{ width: 120, height: 120 }}
+                    />
+                </Grid>
+            </Grid>
+        </Box>
+    )
 }
-
-AccountSetting.propTypes = {}
 
 export default AccountSetting

@@ -15,6 +15,8 @@ import App from "./App"
 import theme from "@/theme/theme"
 import { Error, clientId } from "@/utils/const"
 import { HelmetProvider } from "react-helmet-async"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -25,7 +27,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                         <CssVarsProvider theme={theme}>
                             <GoogleOAuthProvider clientId={clientId}>
                                 <CssBaseline />
-                                <App />
+                                <LocalizationProvider
+                                    dateAdapter={AdapterDayjs}
+                                >
+                                    <App />
+                                </LocalizationProvider>
                                 <ToastContainer
                                     position="top-right"
                                     limit={5}

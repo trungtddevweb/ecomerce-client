@@ -1,7 +1,7 @@
 import useStyles from "@/assets/styles"
 import Seo from "@/components/feature/Seo"
 import { listTabsAccountSetting, listTabsComponent } from "@/utils/components"
-import { pathRoutes } from "@/utils/const"
+import { AccountSetting, pathRoutes } from "@/utils/const"
 import {
     Box,
     Grid,
@@ -21,9 +21,7 @@ const UserAccount = () => {
     const searchParams = new URLSearchParams(location.search)
     const activeTab = searchParams.get("tab")
 
-    const activeComponent = listTabsComponent[activeTab] || (
-        <div>Hello World</div>
-    )
+    const activeComponent = listTabsComponent[activeTab] || <AccountSetting />
 
     // Handlers
     const handleChangeTab = (event, tab) => {
@@ -42,6 +40,7 @@ const UserAccount = () => {
                             {listTabsAccountSetting.map((item) => (
                                 <ListItem key={item.slug} disablePadding>
                                     <ListItemButton
+                                        selected={item.value === activeTab}
                                         onClick={(event) =>
                                             handleChangeTab(event, item.slug)
                                         }
