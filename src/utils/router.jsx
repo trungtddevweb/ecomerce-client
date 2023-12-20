@@ -28,6 +28,11 @@ import {
     OrderSuccess,
     Collection,
     UserAccount,
+    UserController,
+    OrderController,
+    ProductController,
+    VoucherController,
+    StoreController,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -134,23 +139,23 @@ const router = createBrowserRouter([
                     },
                     {
                         path: pathRoutes.customer,
-                        element: <div>User Controller</div>,
+                        element: <UserController />,
                     },
                     {
                         path: pathRoutes.order,
-                        element: <div>Order Controller</div>,
+                        element: <OrderController />,
                     },
                     {
                         path: pathRoutes.store,
-                        element: <div>Store Controller</div>,
+                        element: <StoreController />,
                     },
                     {
                         path: pathRoutes.product,
-                        element: <div>Product Controller</div>,
+                        element: <ProductController />,
                     },
                     {
                         path: pathRoutes.voucher,
-                        element: <div>Voucher Controller</div>,
+                        element: <VoucherController />,
                     },
                     {
                         path: pathRoutes.setting,

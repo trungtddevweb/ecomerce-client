@@ -20,6 +20,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell"
 import useFetch from "@/hooks/useFetch"
 import { formatCellValue } from "@/utils/format"
 import { optionSelectPageValues } from "@/utils/const"
+import useStyles from "@/assets/styles"
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -52,6 +53,8 @@ const PaginationCustom = ({ valueToFetch, urlFetch }) => {
         `${urlFetch}?page=${page}&limit=${limit}`,
     )
 
+    const styles = useStyles()
+
     const handleChange = (event, value) => {
         setPage(value)
     }
@@ -72,7 +75,7 @@ const PaginationCustom = ({ valueToFetch, urlFetch }) => {
                 <TableBody>
                     {loading ? (
                         <StyledTableRow>
-                            <StyledTableCell colSpan={5}>
+                            <StyledTableCell colSpan={valueToFetch.length}>
                                 <LinearProgress />
                             </StyledTableCell>
                         </StyledTableRow>
@@ -85,6 +88,7 @@ const PaginationCustom = ({ valueToFetch, urlFetch }) => {
                                     <StyledTableCell
                                         key={item.value}
                                         align="center"
+                                        className={styles.limitText}
                                     >
                                         {formatCellValue(item.value, row)}
                                     </StyledTableCell>
@@ -93,7 +97,9 @@ const PaginationCustom = ({ valueToFetch, urlFetch }) => {
                         ))
                     )}
                     <StyledTableRow className="justify-end">
-                        <StyledTableCell colSpan={5}>
+                        <StyledTableCell
+                            colSpan={parseInt(valueToFetch.length)}
+                        >
                             <Stack alignItems="center" direction="row">
                                 <Stack
                                     direction="row"

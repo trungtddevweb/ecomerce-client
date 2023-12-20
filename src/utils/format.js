@@ -32,7 +32,15 @@ export const formatPrice = (value) => {
 }
 
 export const formatCellValue = (value, rowData) => {
-    if (value === "createdAt") return formatDate(rowData[value])
-    if (typeof rowData[value] === "number") return formatPrice(rowData[value])
-    return rowData[value]
+    if (value === "createdAt") {
+        return formatDate(rowData[value])
+    } else if (typeof rowData[value] === "boolean") {
+        return rowData[value].toString()
+    } else if (typeof rowData[value] === "object") {
+        return rowData[value].length
+    } else if (typeof rowData[value] === "number") {
+        return formatPrice(rowData[value])
+    } else {
+        return rowData[value]
+    }
 }
