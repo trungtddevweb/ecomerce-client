@@ -70,6 +70,12 @@ const useStyles = makeStyles(() =>
             overflow: "hidden",
             textOverflow: "ellipsis",
         },
+        limitText: {
+            maxWidth: "200px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+        },
         breadcrumbs: {
             fontSize: "12px",
             fontWeight: "bold",

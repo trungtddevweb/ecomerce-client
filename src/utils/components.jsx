@@ -9,7 +9,29 @@ import {
     ShoppingCart,
     BarChart,
     StarBorder,
+    LocalShipping,
 } from "@mui/icons-material"
+import { AccountOrder, AccountSetting } from "./const"
+
+export const listTabsAccountSetting = [
+    {
+        icon: <Person2 />,
+        label: "Thông tin cá nhân",
+        slug: "?tab=setting",
+        value: "setting",
+    },
+    {
+        icon: <LocalShipping />,
+        label: "Đơn hàng của tôi",
+        slug: "?tab=order",
+        value: "order",
+    },
+]
+
+export const listTabsComponent = {
+    setting: <AccountSetting />,
+    order: <AccountOrder />,
+}
 
 export const navItemsDashboard = [
     {

@@ -16,8 +16,8 @@ const Ordering = () => {
                             Giao hàng nhanh, miễn phí
                         </Typography>
                         <Typography className="text-center">
-                            Đơn hàng > 900k hoặc đăng ký tài khoản được giao
-                            hàng miễn phí
+                            Đơn hàng 900k hoặc đăng ký tài khoản được giao hàng
+                            miễn phí
                         </Typography>
                     </Box>
                 </Grid>

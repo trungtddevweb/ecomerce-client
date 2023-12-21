@@ -64,6 +64,7 @@ const Header = ({ tag }) => {
             const res = await signOutAPI()
             if (res.status === 200) {
                 dispatch(logoutSuccess())
+                localStorage.removeItem("token")
                 redirect("/")
             }
         } catch (error) {
