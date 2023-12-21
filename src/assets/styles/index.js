@@ -97,7 +97,7 @@ const useStyles = makeStyles(() =>
             },
         },
         zoomedImage: {
-            transition: "transform 0.3s ease-in-out",
+            transition: "transform 1s linear",
             display: "block",
             width: "100%",
             height: "auto",

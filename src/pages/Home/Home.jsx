@@ -1,7 +1,6 @@
 import { Box, Card, CardMedia } from "@mui/material"
 
 import Seo from "@/components/feature/Seo"
-import banner1 from "@/assets/imgs/banner1.webp"
 import SaleProducts from "@/components/SaleProducts/SaleProducts"
 import useStyles from "@/assets/styles"
 import NewProducts from "./NewProducts"
@@ -20,7 +19,11 @@ const Home = () => {
             />
             <Box className={classes.marginAuto}>
                 <Card>
-                    <CardMedia component="img" src={banner1} alt="banner" />
+                    <CardMedia
+                        component="img"
+                        src="https://theme.hstatic.net/1000277887/1001122886/14/home_slider_item_image_1.png?v=424"
+                        alt="banner"
+                    />
                 </Card>
             </Box>
             <ListProducts />
