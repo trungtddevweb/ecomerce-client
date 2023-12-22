@@ -12,12 +12,12 @@ const SaleProducts = () => {
     return (
         <Box className={classes.marginAuto}>
             <Grid container spacing={1} my={2}>
-                <Grid item xs={2}>
-                    {data &&
-                        data.docs?.map((product) => (
-                            <CardProduct product={product} key={product._id} />
-                        ))}
-                </Grid>
+                {data &&
+                    data.docs?.map((product) => (
+                        <Grid item xs={2.4} key={product._id}>
+                            <CardProduct product={product} />
+                        </Grid>
+                    ))}
             </Grid>
         </Box>
     )
