@@ -33,6 +33,7 @@ import {
     ProductController,
     VoucherController,
     StoreController,
+    Search,
 } from "./const"
 
 const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path: pathRoutes.collection,
                 element: <Collection />,
+            },
+            {
+                path: pathRoutes.search,
+                element: <Search />,
             },
         ],
     },

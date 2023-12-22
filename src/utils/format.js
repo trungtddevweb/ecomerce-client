@@ -32,7 +32,7 @@ export const formatPrice = (value) => {
 }
 
 export const formatCellValue = (value, rowData) => {
-    if (value === "createdAt") {
+    if (value === "createdAt" || value === "startTime" || value === "endTime") {
         return formatDate(rowData[value])
     } else if (typeof rowData[value] === "boolean") {
         return rowData[value].toString()

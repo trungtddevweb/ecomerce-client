@@ -47,13 +47,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }))
 
 const PaginationCustom = ({ valueToFetch, urlFetch }) => {
+    const styles = useStyles()
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(5)
     const { data, error, loading } = useFetch(
         `${urlFetch}?page=${page}&limit=${limit}`,
     )
-
-    const styles = useStyles()
 
     const handleChange = (event, value) => {
         setPage(value)

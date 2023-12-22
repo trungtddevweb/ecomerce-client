@@ -61,7 +61,7 @@ const Collection = () => {
 
                     <Grid container spacing={1}>
                         <Grid item xs={3}>
-                            <Typography mb={1} fontWeight={600}>
+                            {/* <Typography mb={1} fontWeight={600}>
                                 Lọc sản phẩm
                             </Typography>
                             <List>
@@ -118,7 +118,7 @@ const Collection = () => {
                                         </ListItemButton>
                                     </ListItem>
                                 ))}
-                            </List>
+                            </List> */}
                         </Grid>
                         <Grid
                             item

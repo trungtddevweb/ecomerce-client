@@ -1,121 +1,62 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material"
-import useStyles from "@/assets/styles"
+import { Box, Grid, Typography } from "@mui/material"
+import { useEffect, useState, useMemo } from "react"
+import { getProductByFieldAPI } from "@/api/main"
+import CardProduct from "@/components/common/CardProduct"
+import SkeletonFallback from "@/components/fallback/Skeleton/SkeletonFallback"
 
-const AnotherProducts = () => {
-  const classes = useStyles()
+const AnotherProduct = ({ fields, value, productId }) => {
+    const [lists, setLists] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={2}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llqxujtqwusf50"
-            />
-            <CardContent>
-              <Typography className={classes.limitTitle} gutterBottom>
-                Áo Hoodie Zip FUNKY Xám Tiêu - Áo Khoác Nỉ Nam Nữ Mũ Trùm Form
-                Rộng Nỉ Cotton Cao Cấp
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography color="error">200000đ</Typography>
-                <Typography>10</Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={2}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              src="https://down-vn.img.susercontent.com/file/08a33fb27df33917e350c0a163e04125"
-            />
-            <CardContent>
-              <Typography className={classes.limitTitle} gutterBottom>
-                Áo hoodies dài tay unisex SOZO in hình gấu - AO TOP NAM 90000203
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography color="error">80000đ</Typography>
-                <Typography>10</Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={2}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              src="https://down-vn.img.susercontent.com/file/e9a1464780d98ef4ef9b9c32ce8e02b8"
-            />
-            <CardContent>
-              <Typography className={classes.limitTitle} gutterBottom>
-                Áo Khoác Hoodie Khủng Long Cực Chất sweater unisex Cao cấp bền
-                màu 1Kenz
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography color="error">66000đ</Typography>
-                <Typography>10</Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={2}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llqvwo9hs5wf41"
-            />
-            <CardContent>
-              <Typography className={classes.limitTitle} gutterBottom>
-                Áo Hoodie Zip ALAI BEAR Form Rộng Mũ Trùm Vải Nỉ Bông Cao Cấp ,
-                Áo Hoodie Nam Nữ Phong Cách hàn Quốc
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography color="error">175000đ</Typography>
-                <Typography>10</Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={2}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              src="https://down-vn.img.susercontent.com/file/sg-11134201-22120-utqz1t5gaykvcd"
-            />
-            <CardContent>
-              <Typography className={classes.limitTitle} gutterBottom>
-                Áo hoodie Faruiline men417 22W Thời Trang Cá Tính Cho Nam Nữ
-              </Typography>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography color="error">147000đ</Typography>
-                <Typography>10</Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-    </Grid>
-  )
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const products = await getProductByFieldAPI(fields, value, 6, 1)
+                setIsLoading(false)
+                setLists(products.docs)
+            } catch (error) {
+                setIsLoading(false)
+                console.error(error)
+            }
+        }
+        fetchProducts()
+    }, [fields, value])
+
+    const processedResult = useMemo(
+        () => lists.filter((item) => !(item._id && item._id === productId)),
+        [lists, productId],
+    )
+    return (
+        <Box display="flex" flexDirection="column">
+            <Box>
+                {processedResult.length === 0 && (
+                    <Typography
+                        variant="subtitle1"
+                        color="GrayText"
+                        padding={2}
+                    >
+                        Không có sản phẩm nào!
+                    </Typography>
+                )}
+                <Grid container minHeight={360} spacing={2}>
+                    {(isLoading
+                        ? Array.from(new Array(6))
+                        : processedResult
+                    ).map((list, index) => (
+                        <Grid item key={list?._id || index} xs={2}>
+                            {list ? (
+                                <CardProduct product={list} />
+                            ) : (
+                                <Box>
+                                    <SkeletonFallback />
+                                </Box>
+                            )}
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+        </Box>
+    )
 }
 
-AnotherProducts.propTypes = {}
-
-export default AnotherProducts
+export default AnotherProduct

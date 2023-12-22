@@ -11,10 +11,7 @@ import { createCommentAPI } from "@/api/main"
 const Comments = ({ productId, comments }) => {
     dayjs.extend(relativeTime)
     const [comment, setComment] = useState(comments)
-    console.log(comment)
     const { data, loading, error } = useFetch(`/comment/${productId}`)
-    console.log(comments)
-    // if (error) return <Box>error</Box>
 
     const user = useSelector((state) => state.auth.user)
     const { accessToken } = user
@@ -30,14 +27,16 @@ const Comments = ({ productId, comments }) => {
             content: commentVal,
             productId,
         })
-        console.log(res)
         if (res.status === 201) {
             setComment([...comment, res.data])
             setCommentVal("")
         }
     }
+
+    if (error) return <Box>error</Box>
+
     return (
-        <Box>
+        <Box mb={8}>
             <Paper sx={{ padding: "16px" }}>
                 <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
                     Bình luận sản phẩm
@@ -63,9 +62,8 @@ const Comments = ({ productId, comments }) => {
                     <Box sx={{ textAlign: "center" }}>
                         <Link to="/sign-in">
                             <Typography color="primary" component="span">
-                                Đăng nhập
+                                Đăng nhập để bình luận
                             </Typography>
-                            để bình luận
                         </Link>
                     </Box>
                 )}
