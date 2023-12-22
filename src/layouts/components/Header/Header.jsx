@@ -25,6 +25,7 @@ import {
     Stack,
     Avatar,
     Menu,
+    FormControl,
     Tooltip,
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
@@ -96,6 +97,7 @@ export default function Header(props) {
     const { mode, setMode } = useColorScheme()
     const { data: user } = useFetch("/user/get-user")
     const cartCount = useSelector((state) => state.auth.carts)
+    const [value, setValue] = useState("")
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -149,6 +151,25 @@ export default function Header(props) {
         navigate(`/${pathRoutes.cart}`)
     }
 
+    // Search
+
+    const handleSearch = (e) => {
+        e.preventDefault()
+        if (!value) {
+            return
+        }
+        setValue("")
+        navigate(`/search?name=${value}`)
+    }
+
+    const handleInputChange = (event) => {
+        const value = event.target.value
+        if (value.startsWith(" ")) {
+            return
+        }
+        setValue(value)
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <HideOnScroll {...props}>
@@ -180,10 +201,17 @@ export default function Header(props) {
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Tìm kiếm..."
-                                inputProps={{ "aria-label": "search" }}
-                            />
+                            <Box component="form" onSubmit={handleSearch}>
+                                <FormControl>
+                                    <StyledInputBase
+                                        placeholder="Tìm kiếm..."
+                                        inputProps={{ "aria-label": "search" }}
+                                        value={value}
+                                        autoComplete="off"
+                                        onChange={(e) => handleInputChange(e)}
+                                    />
+                                </FormControl>
+                            </Box>
                         </Search>
                         <Box sx={{ flexGrow: 0.5 }} />
                         <Stack direction="row" spacing={1} alignItems="center">

@@ -51,9 +51,23 @@ const CardProduct = ({ product }) => {
                         </Stack>
 
                         <Stack direction="row" justifyContent="space-between">
-                            <Typography color="error">
-                                {formatPrice(price)}đ
-                            </Typography>
+                            {product?.regularPrice ? (
+                                <Stack>
+                                    <Typography
+                                        color="disabled"
+                                        className="line-through"
+                                    >
+                                        {formatPrice(product?.regularPrice)}đ
+                                    </Typography>
+                                    <Typography color="error">
+                                        {formatPrice(price)}đ
+                                    </Typography>
+                                </Stack>
+                            ) : (
+                                <Typography color="error">
+                                    {formatPrice(price)}đ
+                                </Typography>
+                            )}
                             <Typography>Đã bán {sold}</Typography>
                         </Stack>
                     </CardContent>

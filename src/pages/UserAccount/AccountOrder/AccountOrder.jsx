@@ -4,7 +4,7 @@ import { listValueOfOrderToGet } from "@/utils/const"
 const AccountOrder = () => {
     return (
         <PaginationCustom
-            urlFetch="/order"
+            urlFetch="/user/order"
             valueToFetch={listValueOfOrderToGet}
         />
     )

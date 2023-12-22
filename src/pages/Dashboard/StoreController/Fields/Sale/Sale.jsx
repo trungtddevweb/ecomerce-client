@@ -65,7 +65,6 @@ const Sale = () => {
         defaultValues,
         resolver: yupResolver(schema),
     })
-
     const flashSale = async (data) => {
         const payload = {
             ...data,

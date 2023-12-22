@@ -26,6 +26,7 @@ export const VerifyEmailOTP = lazy(() => import("@/pages/VerifyEmailOTP"))
 export const VerifyPassOTP = lazy(() => import("@/pages/VerifyPassOTP"))
 export const Forgot = lazy(() => import("@/pages/Forgot"))
 export const ChangePass = lazy(() => import("@/pages/ChangePass"))
+export const Search = lazy(() => import("@/pages/Search"))
 // Dashboard Routes
 export const OverView = lazy(() => import("@/pages/Dashboard/Overview"))
 export const OrderController = lazy(() =>
@@ -70,6 +71,7 @@ export const pathRoutes = {
     product: "product",
     store: "store",
     cart: "cart",
+    search: "search",
     verifyEmailOTP: "verify-email",
     verifyPassOTP: "verify-password",
     forgot: "forgot-password",
@@ -164,6 +166,37 @@ export const listFieldOrderController = [
     {
         value: "status",
         label: "Trạng thái",
+    },
+]
+
+export const listFieldVoucherController = [
+    {
+        value: "voucherCode",
+        label: "Tên mã",
+    },
+    {
+        value: "total",
+        label: "Số lượng",
+    },
+    {
+        value: "discount",
+        label: "Số tiền giảm",
+    },
+    {
+        value: "used",
+        label: "Đã sử dụng",
+    },
+    {
+        value: "expired",
+        label: "Hết hạn",
+    },
+    {
+        value: "startTime",
+        label: "Ngày bắt đâu",
+    },
+    {
+        value: "endTime",
+        label: "Ngày hết hạn",
     },
 ]
 

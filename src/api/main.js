@@ -75,7 +75,18 @@ export const createFlashSaleAPI = async (data) => {
 }
 
 export const createVoucherAPI = async (data) => {
-    const response = await mainAPI.post("/vouchers", data)
+    const response = await mainAPI.post("/voucher", data)
+    return response.data
+}
+
+export const getRandomProductsAPI = async (num) => {
+    return await mainAPI.get(`/products/random?num=${num}`)
+}
+
+export const getProductByFieldAPI = async (fields, value, limit, page) => {
+    const response = await mainAPI.get(
+        `/products/fields/search/?${fields}=${value}&limit=${limit}&page=${page}`,
+    )
     return response.data
 }
 

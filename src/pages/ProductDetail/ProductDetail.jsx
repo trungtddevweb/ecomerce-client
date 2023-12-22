@@ -356,7 +356,12 @@ const ProductDettail = () => {
                         <Typography mb={2} variant="h5">
                             Sản phẩm liên quan
                         </Typography>
-                        <AnotherProducts />
+                        <AnotherProducts
+                            fields="tag"
+                            productId={product._id}
+                            value={product.tag}
+                            title="Các sản phẩm cùng loại"
+                        />
                     </Box>
                 </Paper>
 
