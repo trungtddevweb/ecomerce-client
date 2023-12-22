@@ -25,7 +25,7 @@ const ListProduct = () => {
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
-                                    src="https://vn-live-01.slatic.net/p/3c52e580676955c3cbe2765782b2d7f5.jpg"
+                                    src="https://zizoou.com/cdn/shop/files/Ao-khoac-jacket-bomber-hoodies-form-rong-oversize-Ao-khoac-den-7-1_Similar_1_Extras-ZiZoou-Store_7d10f123-e3e2-4762-8f21-cd3f50178abb.jpg?v=1687077300"
                                 />
                                 <CardContent sx={{ bgcolor: "#297fb9" }}>
                                     <Box sx={{ textAlign: "center" }}>
@@ -33,7 +33,7 @@ const ListProduct = () => {
                                             gutterBottom
                                             sx={{ color: "white" }}
                                         >
-                                            Áo thun nam
+                                            Áo khoác nữ
                                         </Typography>
                                         <Button
                                             variant="contained"

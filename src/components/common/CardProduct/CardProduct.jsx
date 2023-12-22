@@ -50,7 +50,11 @@ const CardProduct = ({ product }) => {
                             </Typography>
                         </Stack>
 
-                        <Stack direction="row" justifyContent="space-between">
+                        <Stack
+                            direction="row"
+                            justifyContent="space-between"
+                            height={50}
+                        >
                             {product?.regularPrice ? (
                                 <Stack>
                                     <Typography
